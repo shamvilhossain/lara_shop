@@ -40,6 +40,7 @@
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('public/backend/css/starlight.css')}}">
     <link rel="stylesheet" href="{{asset('public/backend/lib/datatables/jquery.dataTables.css')}}" >
+    <link rel="stylesheet" href="{{ asset('public/backend/lib/select2/css/select2.min.css') }}" >
   </head>
 
   <body>
@@ -69,23 +70,21 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{ route('categories')}}" class="nav-link">Category</a></li>
-          <li class="nav-item"><a href="chart-flot.html" class="nav-link">Sub Category</a></li>
-          <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Brand</a></li>
+          <li class="nav-item"><a href="{{ route('sub.categories')}}" class="nav-link">Sub Category</a></li>
+          <li class="nav-item"><a href="{{ route('brands')}}" class="nav-link">Brand</a></li>
         </ul>
+
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-            <span class="menu-item-label">Forms</span>
+            <span class="menu-item-label">Coupon</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="form-elements.html" class="nav-link">Form Elements</a></li>
-          <li class="nav-item"><a href="form-layouts.html" class="nav-link">Form Layouts</a></li>
-          <li class="nav-item"><a href="form-validation.html" class="nav-link">Form Validation</a></li>
-          <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
-          <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
+          <li class="nav-item"><a href="{{ route('admin.coupon')}}" class="nav-link">Coupon</a></li>
         </ul>
+
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>

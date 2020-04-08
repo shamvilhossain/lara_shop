@@ -6,11 +6,11 @@
      
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Category Table</h5>
+          <h5>Brand Table</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category List
+          <h6 class="card-body-title">Brand List
           	<a href="#" class="btn btn-sm btn-warning" style="float: right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
           </h6>
           <br>
@@ -19,18 +19,20 @@
               <thead>
                 <tr>
                   <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Category name</th>
+                  <th class="wd-15p">Brand Name</th>
+                  <th class="wd-15p">Brand Logo</th>
                   <th class="wd-20p">Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($category as $row)
+                @foreach($brand as $row)
                   <tr>
                     <td>{{$row->id}}</td>
-                    <td>{{$row->category_name}}</td>
+                    <td>{{$row->brand_name}}</td>
+                    <td><img src="{{URL::to($row->brand_logo)}}" height="70px" width="80px"></td>
                     <td>
-                    	<a href="{{URL::to('edit/category/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
-                    	<a href="{{URL::to('delete/category/'.$row->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+                    	<a href="{{URL::to('edit/brand/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
+                    	<a href="{{URL::to('delete/brand/'.$row->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                     </td>
                   </tr>
                 @endforeach
@@ -48,7 +50,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content tx-size-sm">
               <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Categry</h6>
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">BRAND ADD</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -62,13 +64,17 @@
                       </ul>
                   </div>
               @endif
-              <form method="post" action="{{route('store.category')}}">
+              <form method="post" action="{{route('store.brand')}}" enctype="multipart/form-data">
               @csrf
               <div class="modal-body pd-20">
                 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Category Name</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="category_name" aria-describedby="emailHelp" placeholder="Category Name">
+                  <label for="exampleInputEmail1">Brand Name</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" name="brand_name" placeholder="Brand Name">
+                 </div>
+                 <div class="form-group">
+                  <label for="exampleInputEmail2">Brand Logo</label>
+                  <input type="file" class="form-control" id="exampleInputEmail2" name="brand_logo" placeholder="Brand Logo">
                  </div>
                
               </div><!-- modal-body -->

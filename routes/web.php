@@ -25,3 +25,34 @@ Route::get('admin/logout', 'AdminController@logout')->name('admin.logout');
 
 // admin part----------------------
 Route::get('admin/categories', 'Admin\Category\CategoryController@category')->name('categories');
+Route::post('admin/store/category', 'Admin\Category\CategoryController@storecategory')->name('store.category');
+Route::get('delete/category/{id}', 'Admin\Category\CategoryController@DeleteCategory');
+Route::get('edit/category/{id}', 'Admin\Category\CategoryController@EditCategory');
+Route::post('update/category/{id}', 'Admin\Category\CategoryController@UpdateCategory');
+//Brands==========
+Route::get('admin/brands', 'Admin\Category\CategoryController@brand')->name('brands');
+Route::post('admin/store/brand', 'Admin\Category\CategoryController@storebrand')->name('store.brand');
+Route::get('delete/brand/{id}', 'Admin\Category\CategoryController@DeleteBrand');
+Route::get('edit/brand/{id}', 'Admin\Category\CategoryController@EditBrand');
+Route::post('update/brand/{id}', 'Admin\Category\CategoryController@UpdateBrand');
+
+//sub categories=====
+Route::get('admin/sub/category', 'Admin\Category\CategoryController@subcategories')->name('sub.categories');
+Route::post('admin/store/subcat', 'Admin\Category\CategoryController@storesubcat')->name('store.subcategory');
+Route::get('delete/subcategory/{id}','Admin\Category\CategoryController@DeleteSubCat');
+Route::get('edit/subcategory/{id}','Admin\Category\CategoryController@EditSubCat');
+Route::post('update/subcategory/{id}','Admin\Category\CategoryController@UpdateSubCat'); 
+
+//Coupon==========
+Route::get('admin/coupon', 'Admin\CouponController@Coupon')->name('admin.coupon');
+Route::post('admin/store/coupon', 'Admin\CouponController@StoreCoupon')->name('store.coupon');
+Route::get('delete/coupon/{id}','Admin\CouponController@DeleteCoupon');
+Route::get('edit/coupon/{id}','Admin\CouponController@EditCoupon');
+Route::post('update/coupon/{id}','Admin\CouponController@UpdateCoupon'); 
+
+
+
+
+
+//Front==========
+Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');

@@ -1506,9 +1506,10 @@
         <div class="col-md-12">
           <div class="aa-subscribe-area">
             <h3>Subscribe our newsletter </h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
-            <form action="" class="aa-subscribe-form">
-              <input type="email" name="" id="" placeholder="Enter your Email">
+            <p>Subscribe to our newsletter and stay updated on the special offers!</p>
+            <form action="{{route('store.newslater')}}" method="post" class="aa-subscribe-form">
+              @csrf
+              <input type="email" name="email" id="email" placeholder="Enter your Email">
               <input type="submit" value="Subscribe">
             </form>
           </div>

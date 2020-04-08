@@ -6,11 +6,11 @@
      
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Category Table</h5>
+          <h5>Coupon Table</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">Category List
+          <h6 class="card-body-title">Coupon List
           	<a href="#" class="btn btn-sm btn-warning" style="float: right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
           </h6>
           <br>
@@ -19,18 +19,20 @@
               <thead>
                 <tr>
                   <th class="wd-15p">ID</th>
-                  <th class="wd-15p">Category name</th>
+                  <th class="wd-15p">Coupon Code</th>
+                  <th class="wd-15p">Coupon Percentage</th>
                   <th class="wd-20p">Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($category as $row)
+                @foreach($coupon as $row)
                   <tr>
                     <td>{{$row->id}}</td>
-                    <td>{{$row->category_name}}</td>
+                    <td>{{$row->coupon}}</td>
+                    <td>{{$row->discount}}</td>
                     <td>
-                    	<a href="{{URL::to('edit/category/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
-                    	<a href="{{URL::to('delete/category/'.$row->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+                    	<a href="{{URL::to('edit/coupon/'.$row->id)}}" class="btn btn-sm btn-info">Edit</a>
+                    	<a href="{{URL::to('delete/coupon/'.$row->id)}}" class="btn btn-sm btn-danger" id="delete">Delete</a>
                     </td>
                   </tr>
                 @endforeach
@@ -48,7 +50,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content tx-size-sm">
               <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Categry</h6>
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Coupon Add</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -62,13 +64,18 @@
                       </ul>
                   </div>
               @endif
-              <form method="post" action="{{route('store.category')}}">
+              <form method="post" action="{{route('store.coupon')}}">
               @csrf
               <div class="modal-body pd-20">
                 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Category Name</label>
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="category_name" aria-describedby="emailHelp" placeholder="Category Name">
+                  <label for="exampleInputEmail1">Coupon Code</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" name="coupon" placeholder="Coupon Code" required>
+                 </div>
+
+                 <div class="form-group">
+                  <label for="exampleInputEmail2">Coupon Discount (%)</label>
+                  <input type="text" class="form-control" id="exampleInputEmail2" name="discount" placeholder="Coupon Discount" required>
                  </div>
                
               </div><!-- modal-body -->

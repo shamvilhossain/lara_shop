@@ -28,6 +28,8 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+
     
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -452,6 +454,27 @@
   <script type="text/javascript" src="{{asset('public/frontend/js/nouislider.js')}}"></script>
   <!-- Custom js -->
   <script src="{{asset('public/frontend/js/custom.js')}}"></script> 
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+  <script>
+        @if(Session::has('messege'))
+          var type="{{Session::get('alert-type','info')}}"
+          switch(type){
+              case 'info':
+                   toastr.info("{{ Session::get('messege') }}");
+                   break;
+              case 'success':
+                  toastr.success("{{ Session::get('messege') }}");
+                  break;
+              case 'warning':
+                 toastr.warning("{{ Session::get('messege') }}");
+                  break;
+              case 'error':
+                  toastr.error("{{ Session::get('messege') }}");
+                  break;
+          }
+        @endif
+     </script> 
 
   </body>
 </html>
