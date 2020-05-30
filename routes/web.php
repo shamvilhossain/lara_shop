@@ -65,10 +65,16 @@ Route::get('delete/product/{id}','Admin\ProductController@DeleteProduct');
 Route::get('edit/product/{id}','Admin\ProductController@EditProduct');
 Route::post('update/product/withoutphoto/{id}','Admin\ProductController@UpdateProductWithoutPhoto');
 Route::post('update/product/photo/{id}','Admin\ProductController@UpdateProductPhoto');
+Route::get('view/product/{id}','Admin\ProductController@ViewProduct');
         // get subcat by ajax
 Route::get('get/subcategory/{category_id}','Admin\ProductController@GetSubcat');
 
-
-
+//Posts==========
+Route::get('admin/add/post', 'Admin\PostController@create')->name('add.blogpost');
+Route::post('admin/store/post', 'Admin\PostController@store')->name('store.post');
+Route::get('admin/all/post', 'Admin\PostController@index')->name('all.blogpost');
+Route::get('delete/post/{id}','Admin\PostController@destroy');
+Route::get('edit/post/{id}','Admin\PostController@edit');
+Route::post('update/post/{id}','Admin\PostController@update');
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');

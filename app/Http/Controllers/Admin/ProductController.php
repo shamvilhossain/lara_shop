@@ -116,12 +116,25 @@ class ProductController extends Controller
         unlink($image_two);
         unlink($image_three);
 
-        DB::table('products')->where('id',$id)->dalate();
+        DB::table('products')->where('id',$id)->delete();
         $notification=array(
             'messege'=>'Successfully Product Deleted ',
             'alert-type'=>'success'
            );
        return Redirect()->back()->with($notification); 
+    }
+
+    public function ViewProduct($id)
+    {
+        $product=DB::table('products')
+                ->join('categories','products.category_id','categories.id')
+                ->join('brands','products.brand_id','brands.id')
+                ->join('subcategories','products.subcategory_id','subcategories.id')
+                ->select('products.*','categories.category_name','brands.brand_name','subcategories.subcategory_name')
+                ->where('products.id',$id)
+                ->first();
+        return view('admin.product.show',compact('product'));
+
     }
 
     public function EditProduct($id)
@@ -147,7 +160,8 @@ class ProductController extends Controller
     	$data['video_link']=$request->video_link;
     	$data['mid_slider']=$request->mid_slider;
     	$data['trend']=$request->trend;
-    	$data['featured']=$request->featured;
+        $data['featured']=$request->featured;
+        $data['updated_at']=date("Y-m-d H:i:s");
         //$data['buyone_getone']=$request->buyone_getone;
     
         $update = DB::table('products')->where('id',$id)->update($data);
