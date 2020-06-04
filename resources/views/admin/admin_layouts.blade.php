@@ -137,7 +137,7 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{route('admin.newslater')}}" class="nav-link">NewsLaters</a></li>
-          <li class="nav-item"><a href="page-signin.html" class="nav-link">Signin Page</a></li>
+          <li class="nav-item"><a href="{{route('admin.main_sliders')}}" class="nav-link">Main Sliders</a></li>
           <li class="nav-item"><a href="page-signup.html" class="nav-link">Signup Page</a></li>
           <li class="nav-item"><a href="page-notfound.html" class="nav-link">404 Page Not Found</a></li>
         </ul>

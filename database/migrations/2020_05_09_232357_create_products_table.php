@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('mid_slider')->nullable();
             $table->tinyInteger('trend')->nullable();
             $table->tinyInteger('featured')->nullable();
+            $table->integer('view_count')->default('0');
             $table->string('image_one')->nullable();
             $table->string('image_two')->nullable();
             $table->string('image_three')->nullable();

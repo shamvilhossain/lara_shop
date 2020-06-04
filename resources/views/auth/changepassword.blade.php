@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+@include('layouts.menubar')
+<section id="aa-myaccount">
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" ><br>
+    
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Change Password') }}</div>
+                <div class="card-header text-center">{{ __('Change Your Password') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('password.update') }}" aria-label="{{ __('Reset Password') }}">
@@ -51,7 +54,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
+                                    {{ __('Change Password') }}
                                 </button>
                             </div>
                         </div>
@@ -59,6 +62,24 @@
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-4">
+           <div class="card" style="">
+            <img src="{{ asset('public/avatar.jpg') }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%;" >
+            <div class="card-body">
+              <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><a href="{{ route('password.change') }}"> Password Change </a></li>
+              <li class="list-group-item"><a href=""> Edit Profile </a></li>
+              <li class="list-group-item"><a href=""> Return Order </a></li>
+            </ul>
+            <div class="card-body">
+              <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a><br>
+            </div>
+          </div>
+         </div>
+        
+    </div><br>
 </div>
+</section>
 @endsection

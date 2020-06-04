@@ -208,7 +208,7 @@ class ProductController extends Controller
         }if($request->has('image_two')) {
            unlink($old_two);
            $image_two_name= hexdec(uniqid()).'.'.$image_two->getClientOriginalExtension();
-           Image::make($image_two)->resize(230,300)->save('public/media/product/'.$image_two_name);
+           Image::make($image_two)->resize(270,300)->save('public/media/product/'.$image_two_name);
            $data['image_two']='public/media/product/'.$image_two_name;
            DB::table('products')->where('id',$id)->update($data);
             $notification=array(
@@ -219,7 +219,7 @@ class ProductController extends Controller
         }if($request->has('image_three')) {
            unlink($old_three);
            $image_three_name= hexdec(uniqid()).'.'.$image_three->getClientOriginalExtension();
-           Image::make($image_three)->resize(230,300)->save('public/media/product/'.$image_three_name);
+           Image::make($image_three)->resize(270,300)->save('public/media/product/'.$image_three_name);
            $data['image_three']='public/media/product/'.$image_three_name;
            DB::table('products')->where('id',$id)->update($data);
             $notification=array(
@@ -231,12 +231,12 @@ class ProductController extends Controller
             
            unlink($old_one);
            $image_one_name= hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
-           Image::make($image_one)->resize(230,300)->save('public/media/product/'.$image_one_name);
+           Image::make($image_one)->resize(270,300)->save('public/media/product/'.$image_one_name);
            $data['image_one']='public/media/product/'.$image_one_name;
             
            unlink($old_two); 
            $image_two_name= hexdec(uniqid()).'.'.$image_two->getClientOriginalExtension();
-           Image::make($image_two)->resize(230,300)->save('public/media/product/'.$image_two_name);
+           Image::make($image_two)->resize(270,300)->save('public/media/product/'.$image_two_name);
            $data['image_two']='public/media/product/'.$image_two_name;
 
            DB::table('products')->where('id',$id)->update($data);
@@ -251,15 +251,15 @@ class ProductController extends Controller
            unlink($old_two);
            unlink($old_three);
            $image_one_name= hexdec(uniqid()).'.'.$image_one->getClientOriginalExtension();
-           Image::make($image_one)->resize(230,300)->save('public/media/product/'.$image_one_name);
+           Image::make($image_one)->resize(300,300)->save('public/media/product/'.$image_one_name);
            $data['image_one']='public/media/product/'.$image_one_name;
             
            $image_two_name= hexdec(uniqid()).'.'.$image_two->getClientOriginalExtension();
-           Image::make($image_two)->resize(230,300)->save('public/media/product/'.$image_two_name);
+           Image::make($image_two)->resize(270,300)->save('public/media/product/'.$image_two_name);
            $data['image_two']='public/media/product/'.$image_two_name;
 
             $image_three_name= hexdec(uniqid()).'.'.$image_three->getClientOriginalExtension();
-           Image::make($image_three)->resize(230,300)->save('public/media/product/'.$image_three_name);
+           Image::make($image_three)->resize(270,300)->save('public/media/product/'.$image_three_name);
            $data['image_three']='public/media/product/'.$image_three_name;
             DB::table('products')->where('id',$id)->update($data);
             $notification=array(

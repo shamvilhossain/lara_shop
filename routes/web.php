@@ -2,12 +2,13 @@
 
 
 
-Route::get('/', function () {return view('pages.index');});
+//Route::get('/', function () {return view('pages.index');});
+Route::get('/', 'FrontController@index');
 //auth & user
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/password-change', 'HomeController@changePassword')->name('password.change');
-Route::post('/password-update', 'HomeController@updatePassword')->name('password.update');
+Route::get('/password/change', 'HomeController@changePassword')->name('password.change');
+Route::post('/password/update', 'HomeController@updatePassword')->name('password.update');
 Route::get('/user/logout', 'HomeController@Logout')->name('user.logout');
 
 //admin=======
@@ -54,6 +55,12 @@ Route::post('update/coupon/{id}','Admin\CouponController@UpdateCoupon');
 //Others==========
 Route::get('admin/newslater', 'Admin\CouponController@Newslater')->name('admin.newslater');
 Route::get('delete/sub/{id}','Admin\CouponController@DeleteSub');
+Route::get('admin/main_sliders', 'Admin\SliderController@index')->name('admin.main_sliders');
+Route::get('admin/add/slider', 'Admin\SliderController@create')->name('add.main_sliders');
+Route::post('admin/store/slider', 'Admin\SliderController@store')->name('store.slider');
+Route::get('delete/slider/{id}','Admin\SliderController@destroy');
+Route::get('edit/slider/{id}','Admin\SliderController@edit');
+Route::post('update/slider/{id}','Admin\SliderController@update');
 
 //Products==========
 Route::get('admin/product/all', 'Admin\ProductController@index')->name('all.product');
@@ -78,3 +85,5 @@ Route::get('edit/post/{id}','Admin\PostController@edit');
 Route::post('update/post/{id}','Admin\PostController@update');
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
+
+// customer profile related routes (email must be verified)

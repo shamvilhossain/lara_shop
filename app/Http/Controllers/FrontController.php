@@ -7,6 +7,33 @@ use DB;
 
 class FrontController extends Controller
 {
+    public function index()
+    {
+        $slider=DB::table('sliders')->where('publication_status',1)->get();
+        $featured_product = DB::table('products')
+                                 ->where('products.featured',1)
+                                 ->where('products.status',1)
+                                 ->orderBy('products.id','desc')
+                                 ->limit(8)
+                                 ->get();
+        $popular_product=DB::table('products')
+                                 ->where('status',1)
+                                 ->orderBy('view_count','desc')
+                                 ->limit(8)
+                                 ->get();   
+        $trend_product=DB::table('products')
+                                 ->where('trend',1)
+                                 ->where('status',1)
+                                 ->orderBy('id','desc')
+                                 ->limit(8)
+                                 ->get();  
+        $latest_product=DB::table('products')
+                                 ->where('status',1)
+                                 ->latest()
+                                 ->limit(8)
+                                 ->get();                                                
+        return view('pages.index',compact('slider','featured_product','popular_product','trend_product','latest_product'));
+    }
     public function StoreNewslater(Request $request)
     {
     	$validatedData = $request->validate([
