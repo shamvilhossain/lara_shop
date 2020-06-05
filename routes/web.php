@@ -85,5 +85,7 @@ Route::get('edit/post/{id}','Admin\PostController@edit');
 Route::post('update/post/{id}','Admin\PostController@update');
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
+//wishlists
+Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
 
 // customer profile related routes (email must be verified)

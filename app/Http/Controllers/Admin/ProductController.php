@@ -54,7 +54,7 @@ class ProductController extends Controller
     	$data['mid_slider']=$request->mid_slider;
     	$data['trend']=$request->trend;
     	$data['featured']=$request->featured;
-        //$data['buyone_getone']=$request->buyone_getone;
+        $data['buyone_getone']=$request->buyone_getone;
     	$data['status']=1;
         $data['created_at']=date("Y-m-d H:i:s");
 
@@ -161,9 +161,9 @@ class ProductController extends Controller
     	$data['mid_slider']=$request->mid_slider;
     	$data['trend']=$request->trend;
         $data['featured']=$request->featured;
+        $data['buyone_getone']=$request->buyone_getone;
         $data['updated_at']=date("Y-m-d H:i:s");
-        //$data['buyone_getone']=$request->buyone_getone;
-    
+        
         $update = DB::table('products')->where('id',$id)->update($data);
         if($update){
             $notification=array(

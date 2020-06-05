@@ -128,32 +128,32 @@
             </div><!-- row -->
             <br><hr>
             <div class="row">
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
                 <label class="ckbox">
                   <input type="checkbox" name="mid_slider" value="1">
                   <span>Mid Slider</span>
                 </label>
             	</div>
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
                 <label class="ckbox">
                   <input type="checkbox" name="trend" value="1">
                   <span>Trend Product</span>
                 </label>
             	</div>
             	
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
             		<label class="ckbox">
       					  <input type="checkbox" name="featured" value="1">
       					  <span>Featured</span>
       					</label>
             	</div>
 
-              {{-- <div class="col-lg-4">
+              <div class="col-lg-3">
                 <label class="ckbox">
                   <input type="checkbox" name="buyone_getone" value="1">
                   <span>Buy One Get One</span>
                 </label>
-              </div> --}}
+              </div> 
 
             </div>
 

@@ -123,7 +123,7 @@
             </div><!-- row -->
             <br><hr>
             <div class="row">
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
             		<label class="ckbox">
 					  <input type="checkbox" name="mid_slider" value="1" <?php if ($product->mid_slider == 1) {
 					  	echo "checked";
@@ -132,7 +132,7 @@
 					</label>
             	</div>
             	
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
             		<label class="ckbox">
 					  <input type="checkbox" name="trend" value="1" <?php if ($product->trend == 1) {
 					  	echo "checked";
@@ -141,7 +141,7 @@
 					</label>
             	</div>
             	
-            	<div class="col-lg-4">
+            	<div class="col-lg-3">
             		<label class="ckbox">
       					  <input type="checkbox" name="featured" value="1" <?php if ($product->featured == 1) {
       					  	echo "checked";
@@ -150,6 +150,14 @@
       					</label>
             	</div>
 
+              <div class="col-lg-3">
+                <label class="ckbox">
+                  <input type="checkbox" name="buyone_getone" value="1" <?php if ($product->buyone_getone == 1) {
+                    echo "checked";
+                  }?>>
+                  <span>Buy One Get One</span>
+                </label>
+              </div> 
               
 
             </div>
