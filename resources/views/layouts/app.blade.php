@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <meta name="csrf" value="{{ csrf_token() }}">  
     <title>Lara Shop | Home</title>
     
     <!-- Font awesome -->
@@ -24,7 +25,7 @@
 
     <!-- Main style sheet -->
     <link href="{{asset('public/frontend/css/style.css')}}" rel="stylesheet">    
-
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -330,10 +331,13 @@
   <script type="text/javascript" src="{{asset('public/frontend/js/slick.js')}}"></script>
   <!-- Price picker slider -->
   <script type="text/javascript" src="{{asset('public/frontend/js/nouislider.js')}}"></script>
+
   <!-- Custom js -->
   <script src="{{asset('public/frontend/js/custom.js')}}"></script> 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+
   <script>
         @if(Session::has('messege'))
           var type="{{Session::get('alert-type','info')}}"

@@ -19,26 +19,14 @@ class WishlistController extends Controller
     		);
     	if(Auth::check()){
     		if($check){
-				$notification=array(
-	            'messege'=>'Product already exists in Wishlist',
-	            'alert-type'=>'error'
-	            );
-	           return Redirect()->back()->with($notification);
+                return response()->json(['error' => 'Product already exists in Wishlist']);
     		}else{
-    			DB::table('wishlists')->insert($data);
-    			$notification=array(
-	            'messege'=>'Product added into Wishlist !',
-	            'alert-type'=>'success'
-	            );
-	           return Redirect()->back()->with($notification);
+               DB::table('wishlists')->insert($data); 
+               return response()->json(['success' => 'Successfully Added into wishlist']);
     		}
 
     	}else{
-    		$notification=array(
-            'messege'=>'At first login your account !',
-            'alert-type'=>'warning'
-            );
-           return Redirect()->back()->with($notification);
+    		return response()->json(['error' => 'At first login your account']); 
     	}
     	
     }

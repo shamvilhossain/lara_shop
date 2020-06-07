@@ -1,7 +1,7 @@
   @extends('layouts.app')
   @section('content')
   @include('layouts.menubar')
- 
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <!-- Start slider ()-->
   <section id="aa-slider">
     <div class="aa-slider-area">
@@ -48,53 +48,40 @@
               <div class="col-md-5 no-padding">                
                 <div class="aa-promo-left">
                   <div class="aa-promo-banner">                    
-                    <img src="{{asset('public/frontend/img/promo-banner-1.jpg')}}" alt="img">                    
+                    <img src="{{ URL::to($buygetone_product->image_one) }}" alt="{{ $buygetone_product->product_name }}">                    
                     <div class="aa-prom-content">
-                      <span>75% Off</span>
-                      <h4><a href="#">For Women</a></h4>                      
+                      <span>Buy One Get One</span>
+                      <h4><a href="#">For {{ $buygetone_product->product_name }}</a></h4>                      
                     </div>
                   </div>
                 </div>
               </div>
+
               <!-- promo right -->
               <div class="col-md-7 no-padding">
                 <div class="aa-promo-right">
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{asset('public/frontend/img/promo-banner-3.jpg')}}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Exclusive Item</span>
-                        <h4><a href="#">For Men</a></h4>                        
+
+                  @foreach($mid_slider_product as $row)
+                    <div class="aa-single-promo-right">
+                      <div class="aa-promo-banner">                      
+                        <img src="{{ URL::to($row->image_one) }}" alt="{{ $row->product_name }}">                      
+                        <div class="aa-prom-content">
+                          
+                          @if($row->discount_price == NULL)
+                              <span>Exclusive Item</span>
+                          @else
+                            @php  
+                              $amount=$row->selling_price - $row->discount_price;
+                              $discount =$amount/$row->selling_price * 100;
+                            @endphp   
+                              <span>{{ intval($discount) }}% OFF</span>
+                          @endif
+                          <h4 ><a href="#" >For {{ $row->product_name }}</a></h4>                        
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{asset('public/frontend/img/promo-banner-2.jpg')}}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Sale Off</span>
-                        <h4><a href="#">On Shoes</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{asset('public/frontend/img/promo-banner-4.jpg')}}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>New Arrivals</span>
-                        <h4><a href="#">For Kids</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{asset('public/frontend/img/promo-banner-5.jpg')}}" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>25% Off</span>
-                        <h4><a href="#">For Bags</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
+                  @endforeach
+
                 </div>
               </div>
             </div>
@@ -129,7 +116,7 @@
                           <li>
                             <figure>
                               <a class="aa-product-img" href="#"><img src="{{asset($f_product->image_one)}}" alt="{{$f_product->product_name}}"></a>
-                              <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                              <a class="aa-add-card-btn addcart" data-id="{{ $f_product->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#">{{$f_product->product_name}}</a></h4>
                                 @if($f_product->discount_price == NULL)
@@ -141,7 +128,7 @@
                               </figcaption>
                             </figure>                        
                             <div class="aa-product-hvr-content">
-                              <a href="{{URL::to('add/wishlist/'.$f_product->id) }}" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                              <a class="addwishlist" data-id="{{ $f_product->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                               <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
@@ -289,12 +276,12 @@
                             @if($row->discount_price == NULL)
                                 <span class="aa-product-price">${{ $row->selling_price }}</span>
                             @else
-                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $f_product->selling_price }}</del></span>
+                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $row->selling_price }}</del></span>
                             @endif
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                           <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                         </div>
@@ -324,12 +311,12 @@
                             @if($row->discount_price == NULL)
                                 <span class="aa-product-price">${{ $row->selling_price }}</span>
                             @else
-                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $f_product->selling_price }}</del></span>
+                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $row->selling_price }}</del></span>
                             @endif
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                           <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                         </div>
@@ -360,12 +347,12 @@
                             @if($row->discount_price == NULL)
                                 <span class="aa-product-price">${{ $row->selling_price }}</span>
                             @else
-                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $f_product->selling_price }}</del></span>
+                                <span class="aa-product-price">${{ $row->discount_price }}</span><span class="aa-product-price"><del>${{ $row->selling_price }}</del></span>
                             @endif
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                           <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                           <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                         </div>
@@ -596,4 +583,89 @@
     </div>
   </section>
   <!-- / Subscribe section -->
+
+<script type="text/javascript">
+      $(document).ready(function() {
+            $('.addcart').on('click', function(e){  
+              e.preventDefault();
+              var id = $(this).data('id');
+              if(id) {
+                 $.ajax({
+                     url: "{{  url('/add/to/cart') }}/"+id,
+                     type:"GET",
+                     dataType:"json",
+                     success:function(data) {
+                       const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 3000
+                        })
+
+                       if($.isEmptyObject(data.error)){
+                            Toast.fire({
+                              type: 'success',
+                              title: data.success
+                            })
+                       }else{
+                             Toast.fire({
+                                type: 'error',
+                                title: data.error
+                            })
+                       }
+
+                     },
+                    
+                 });
+             } else {
+                 alert('danger');
+             }
+              e.preventDefault();
+         });
+     });
+
+</script>
+
+<script type="text/javascript">
+      $(document).ready(function() {
+            $('.addwishlist').on('click', function(e){  
+              e.preventDefault();
+              var id = $(this).data('id');
+              //var id = $(this).attr('data-id');
+              if(id) {
+                 $.ajax({
+                     url: "{{  url('/add/wishlist/') }}/"+id,
+                     type:"GET",
+                     dataType:"json",
+                     success:function(data) {
+                       const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 3000
+                        })
+
+                       if($.isEmptyObject(data.error)){
+                            Toast.fire({
+                              type: 'success',
+                              title: data.success
+                            })
+                       }else{
+                             Toast.fire({
+                                type: 'error',
+                                title: data.error
+                            })
+                       }
+
+                     },
+                    
+                 });
+             } else {
+                 alert('danger');
+             }
+              e.preventDefault();
+         });
+     });
+
+</script>
 @endsection

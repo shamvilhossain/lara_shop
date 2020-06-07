@@ -31,8 +31,19 @@ class FrontController extends Controller
                                  ->where('status',1)
                                  ->latest()
                                  ->limit(8)
-                                 ->get();                                                
-        return view('pages.index',compact('slider','featured_product','popular_product','trend_product','latest_product'));
+                                 ->get();   
+        $mid_slider_product=DB::table('products')
+                                 ->where('mid_slider',1)
+                                 ->where('status',1)
+                                 ->orderBy('id','desc')
+                                 ->limit(4)
+                                 ->get();  
+        $buygetone_product=DB::table('products')
+                                 ->where('buyone_getone',1)
+                                 ->where('status',1)
+                                 ->latest()
+                                 ->first();                                                                                               
+        return view('pages.index',compact('slider','featured_product','popular_product','trend_product','latest_product','mid_slider_product','buygetone_product'));
     }
     public function StoreNewslater(Request $request)
     {

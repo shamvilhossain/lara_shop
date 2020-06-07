@@ -88,4 +88,9 @@ Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.ne
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
 
+
+//cart
+Route::get('add/to/cart/{id}','CartController@AddCart');
+Route::get('check','CartController@check');
+
 // customer profile related routes (email must be verified)
