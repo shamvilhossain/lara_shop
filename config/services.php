@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+    'client_id' => '714792849198-qcdgl1hmom7v1gpb83tu9dpad0iagani.apps.googleusercontent.com',
+    'client_secret' => 'YWeapR5VrfUoi8zC9iIPyb4l',
+    'redirect' => 'http://localhost/lara_shop/callback/google',
+  ], 
+
 ];
