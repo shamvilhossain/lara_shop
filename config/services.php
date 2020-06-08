@@ -34,6 +34,12 @@ return [
     'client_id' => '714792849198-qcdgl1hmom7v1gpb83tu9dpad0iagani.apps.googleusercontent.com',
     'client_secret' => 'YWeapR5VrfUoi8zC9iIPyb4l',
     'redirect' => 'http://localhost/lara_shop/callback/google',
-  ], 
+    ], 
+
+    'facebook' => [
+    'client_id' => '703106813755692',
+    'client_secret' => 'ea019abea64cf773f1f79b629bbad07b',
+    'redirect' => 'http://localhost/lara_shop/callback/facebook',
+    ], 
 
 ];

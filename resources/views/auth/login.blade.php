@@ -202,7 +202,7 @@
                                 <p class="hint-text mt-3">or Login with</p>
                                 <!-- social login area -->
                                 <div class="social-login text-center">
-                                    <a class=" btn-facebook  text-uppercase" href="redirect/facebook" style="border-radius: 25px;"><i class="fa fa-facebook-f mr-2 ml-2">&nbsp;&nbsp;&nbsp;&nbsp; Facebook</i> </a>
+                                    <a class=" btn-facebook  text-uppercase" href="{{ url('/auth/redirect/facebook') }}" style="border-radius: 25px;"><i class="fa fa-facebook-f mr-2 ml-2">&nbsp;&nbsp;&nbsp;&nbsp; Facebook</i> </a>
                                     <a class=" btn-google  text-uppercase" href="{{ url('/auth/redirect/google') }}" style="border-radius: 25px;"><i class="fa fa-google mr-2 ml-2"> &nbsp;&nbsp;&nbsp; Google</i></a>
                                 </div>
 
