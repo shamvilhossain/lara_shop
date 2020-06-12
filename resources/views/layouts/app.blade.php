@@ -103,12 +103,16 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                    <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                    
                     <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
                     <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   @guest
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                   @else
+                   @php
+                    $wishlists=DB::table('wishlists')->where('user_id',Auth::id())->get();
+                   @endphp  
+                    <li class="hidden-xs"><a href="wishlist.html">Wishlist ({{count($wishlists)}})</a></li>
                     <li><a href="{{route('home')}}">My Account</a></li>           
                   @endguest
                     
@@ -145,7 +149,7 @@
                 <a class="aa-cart-link" href="#">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify">{{Cart::count()}}</span>
                 </a>
                 <div class="aa-cartbox-summary">
                   <ul>
@@ -357,6 +361,16 @@
           }
         @endif
      </script> 
+    <script type="text/javascript">
+       $(document).ready(function() {
+            $('.size_cls').on('click', function(e){
+              var item = $(this).text();
+              $(".size_cls").not($(this)).css({"border-color": "#ddd", "border-width":"2px" });
+              $(this).css({"border-color": "green", "border-width":"2px" });
+              $('#product_size').val(item);
+            });
+       });
 
+  </script> 
   </body>
 </html>

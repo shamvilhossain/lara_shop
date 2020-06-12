@@ -115,10 +115,11 @@
                         @foreach($featured_product as $f_product)
                           <li>
                             <figure>
-                              <a class="aa-product-img" href="#"><img src="{{asset($f_product->image_one)}}" alt="{{$f_product->product_name}}"></a>
+                              <a class="aa-product-img" href="{{url('product/details/'.$f_product->id.'/'.str_slug($f_product->product_name, '-'))}}"><img src="{{asset($f_product->image_one)}}" alt="{{$f_product->product_name}}"></a>
                               <a class="aa-add-card-btn addcart" data-id="{{ $f_product->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
                                 <h4 class="aa-product-title"><a href="#">{{$f_product->product_name}}</a></h4>
+                                
                                 @if($f_product->discount_price == NULL)
                                 <span class="aa-product-price">${{ $f_product->selling_price }}</span>
                                 @else
@@ -130,7 +131,7 @@
                             <div class="aa-product-hvr-content">
                               <a class="addwishlist" data-id="{{ $f_product->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                              <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+                              <a href="#" data-toggle="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
                             </div>
                             <!-- product badge -->
                             @if($f_product->discount_price != NULL)

@@ -64,7 +64,7 @@ Route::get('delete/slider/{id}','Admin\SliderController@destroy');
 Route::get('edit/slider/{id}','Admin\SliderController@edit');
 Route::post('update/slider/{id}','Admin\SliderController@update');
 
-//Products==========
+//Products backend==========
 Route::get('admin/product/all', 'Admin\ProductController@index')->name('all.product');
 Route::get('admin/product/add', 'Admin\ProductController@create')->name('add.product');
 Route::post('admin/store/product', 'Admin\ProductController@store')->name('store.product');
@@ -90,9 +90,12 @@ Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.ne
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
 
-
 //cart
 Route::get('add/to/cart/{id}','CartController@AddCart');
 Route::get('check','CartController@check');
+
+//Products frontend==========
+Route::get('product/details/{id}/{product_name}','ProductController@ProductView');
+Route::post('cart/product/add/{product_id}','CartController@ProductAddCart');
 
 // customer profile related routes (email must be verified)

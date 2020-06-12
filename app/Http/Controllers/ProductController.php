@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use DB;
+class ProductController extends Controller
+{
+    public function ProductView($product_id,$product_name)
+    {
+        $product_info = DB::table('products')
+                                 ->join('brands','products.brand_id','=','brands.id')
+                                 ->join('categories','products.category_id','=','categories.id')
+                                 ->select('products.*','brands.brand_name','categories.category_name')
+                                 ->where('products.id',$product_id)
+                                 ->where('products.status',1)
+                                 ->first();
+        $product_colors= explode(',', $product_info->product_color);                         
+                                
+        //update view count
+        DB::table('products')
+                     ->where('id',$product_info->id)
+                     ->increment('view_count', 1);
+
+        // related product                        
+        $related_product_info = DB::table('products')
+                                 ->join('brands','products.brand_id','=','brands.id')
+                                 ->join('categories','products.category_id','=','categories.id')
+                                 ->select('products.*','brands.brand_name','categories.category_name')
+                                 ->where('products.id','<>', $product_info->id)
+                                 ->where('products.category_id',$product_info->category_id)
+                                 ->where('products.status',1)
+                                 ->get();                      
+        return view('pages.product_details',compact('product_info','related_product_info','product_colors'));
+                
+    }
+}
