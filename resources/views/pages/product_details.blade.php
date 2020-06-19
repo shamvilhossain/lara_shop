@@ -103,7 +103,7 @@
                         </p>
                       </div>
                       <div class="aa-prod-view-bottom">
-                        <button type="submit" class="aa-add-to-cart-btn" >Add To Cart</button>
+                        <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
                         <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
                         <!-- <a class="aa-add-to-cart-btn" href="#">Compare</a> -->
                       </div>

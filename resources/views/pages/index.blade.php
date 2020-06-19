@@ -131,7 +131,7 @@
                             <div class="aa-product-hvr-content">
                               <a class="addwishlist" data-id="{{ $f_product->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                               <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+                              <a href="#" id="{{ $f_product->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" onclick="productview(this.id)"><span class="fa fa-search"></span></a>                          
                             </div>
                             <!-- product badge -->
                             @if($f_product->discount_price != NULL)
@@ -158,66 +158,58 @@
                                 <div class="simpleLens-gallery-container" id="demo-1">
                                   <div class="simpleLens-container">
                                       <div class="simpleLens-big-image-container">
-                                          <a class="simpleLens-lens-image" data-lens-image="{{asset('public/frontend/img/view-slider/large/polo-shirt-1.png')}}">
-                                              <img src="{{asset('public/frontend/img/view-slider/medium/polo-shirt-1.png')}}" class="simpleLens-big-image">
+                                          <a class="simpleLens-lens-image" >
+                                              <img id="pimage" src="" class="simpleLens-big-image">
                                           </a>
                                       </div>
                                   </div>
-                                  <div class="simpleLens-thumbnails-container">
-                                      <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{asset('public/frontend/img/view-slider/large/polo-shirt-1.png')}}"
-                                         data-big-image="{{asset('public/frontend/img/view-slider/medium/polo-shirt-1.png')}}">
-                                          <img src="{{asset('public/frontend/img/view-slider/thumbnail/polo-shirt-1.png')}}">
-                                      </a>                                    
-                                     <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{asset('public/frontend/img/view-slider/large/polo-shirt-1.png')}}"
-                                         data-big-image="{{asset('public/frontend/img/view-slider/medium/polo-shirt-1.png')}}">
-                                          <img src="{{asset('public/frontend/img/view-slider/thumbnail/polo-shirt-1.png')}}">
-                                      </a> 
-                                      <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{asset('public/frontend/img/view-slider/large/polo-shirt-1.png')}}"
-                                         data-big-image="{{asset('public/frontend/img/view-slider/medium/polo-shirt-1.png')}}">
-                                          <img src="{{asset('public/frontend/img/view-slider/thumbnail/polo-shirt-1.png')}}">
-                                      </a> 
-                                  </div>
+                                  
                                 </div>
                               </div>
                             </div>
                             <!-- Modal view content -->
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <div class="aa-product-view-content">
-                                <h3>T-Shirt</h3>
+                                <h3 id="pname"></h3>
                                 <div class="aa-price-block">
-                                  <span class="aa-product-view-price">$34.99</span>
+                                  $<span class="aa-product-view-price" id="pprice"></span>
                                   <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                                <h4>Size</h4>
-                                <div class="aa-prod-view-size">
-                                  <a href="#">S</a>
-                                  <a href="#">M</a>
-                                  <a href="#">L</a>
-                                  <a href="#">XL</a>
-                                </div>
-                                <div class="aa-prod-quantity">
-                                  <form action="">
-                                    <select name="" id="">
-                                      <option value="0" selected="1">1</option>
-                                      <option value="1">2</option>
-                                      <option value="2">3</option>
-                                      <option value="3">4</option>
-                                      <option value="4">5</option>
-                                      <option value="5">6</option>
-                                    </select>
-                                  </form>
-                                  <p class="aa-prod-category">
-                                    Category: <a href="#">Polo T-Shirt</a>
-                                  </p>
-                                </div>
-                                <div class="aa-prod-view-bottom">
-                                  <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                  <a href="#" class="aa-add-to-cart-btn">View Details</a>
-                                </div>
+                                <p class="aa-product-avilability">Product code: <span id="pcode"></span></p>
+                                <p class="aa-product-avilability">Brand: <span id="pbrand"></span></p>
+                                <form action="{{route('insert.into.cart')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="product_id" id="product_id" value="">
+                                    <input type="hidden" name="product_size" id="product_size"  value=""/>
+                                    <h4 id="size_head">Size</h4>
+                                    <div class="aa-prod-view-size" id="sizediv">
+                                      
+                                    </div>
+                                    <div class="form-group" id="colordiv">
+                                      <label for="">Color</label>
+                                      <select name="color" class="form-control">
+                                      </select>
+                                    </div>
+                                    <div class="aa-prod-quantity">
+                                      
+                                        <select id="qty" name="qty">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                        </select>
+                                      
+                                      <p class="aa-prod-category">
+                                        Category: <span id="pcat">Polo T-Shirt</span>
+                                      </p>
+                                    </div>
+                                
+                                    <div class="aa-prod-view-bottom">
+                                      <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                                      <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                    </div>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -584,6 +576,115 @@
     </div>
   </section>
   <!-- / Subscribe section -->
+
+<!--product cart add modal should be deleted -->
+<div class="modal fade " id="cartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Product Short Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="row">
+          <div class="col-md-4">
+              <div class="card" style="width: 16rem;">
+              <img src="" class="card-img-top"  style="height: 240px;">
+              <div class="card-body">
+               
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ml-auto">
+              <ul class="list-group">
+                <li class="list-group-item"> <h5 class="card-title" ></h5></span></li>
+             <li class="list-group-item">Product code: <span id=""> </span></li>
+              <li class="list-group-item">Category:  <span id="pcat"> </span></li>
+              <li class="list-group-item">SubCategory:  <span id="psubcat"> </span></li>
+              <li class="list-group-item">Brand: <span id=""> </span></li>
+              <li class="list-group-item">Stock: <span class="badge " style="background: green; color:white;">Available</span></li>
+            </ul>
+          </div>
+          <div class="col-md-4 ">
+              <form action="" method="post">
+                @csrf
+                
+                <div class="form-group" id="colordiv">
+                  <label for="">Color</label>
+                  <select name="color" class="form-control">
+                  </select>
+                </div>
+                <div class="form-group" id="sizediv1" >
+                  <label for="">Size</label>
+                  <select name="size" class="form-control" id="size">
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Quantity</label>
+                  <input type="number" class="form-control" value="1" name="qty">
+                </div>
+                <button type="submit" class="btn btn-primary">Add To Cart</button>
+              </form>
+           </div>
+         </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+<!--modal end-->
+<script type="text/javascript">
+    function productview(id){
+          $.ajax({
+               url: "{{  url('/cart/product/view/') }}/"+id,
+               type:"GET",
+               dataType:"json",
+               success:function(data) {
+                 $('#pname').text(data.product.product_name);
+                 $('#pimage').attr('src',data.product.image_one);
+                 $('#pcat').text(data.product.category_name);
+                 $('#pbrand').text(data.product.brand_name);
+                 $('#pcode').text(data.product.product_code);
+                 $('#pprice').text(data.price);
+                 $('#product_id').val(data.product.id);
+                 $('#product_size').val('');
+
+                 var d =$('#sizediv').empty();
+                 $('#size_head').hide();
+                   $.each(data.size, function(key, value){
+                       $('#sizediv').append('<a class="size_cls" style="cursor:pointer" value="'+ value +'">' + value + '</a>');
+                        if (data.size == "") {
+                              $('#size_head').hide();   
+                              $('#sizediv').hide();   
+                        }else{
+                              $('#size_head').show();
+                              $('#sizediv').show();
+                        } 
+                   });
+
+                  var d =$('select[name="color"]').empty();
+                   $.each(data.color, function(key, value){
+                       $('select[name="color"]').append('<option value="'+ value +'">' + value + '</option>');
+                         if (data.color == "") {
+                              $('#colordiv').hide();
+                        } else{
+                             $('#colordiv').show();
+                        }
+                   });
+              }
+      })
+    }
+</script>
+<script type="text/javascript">
+    $(document).on('click', '.size_cls', function(e){
+      var item = $(this).text();
+      $(".size_cls").not($(this)).css({"border-color": "#ddd", "border-width":"2px" });
+      $(this).css({"border-color": "green", "border-width":"2px" });
+      $('#product_size').val(item);
+    });
+</script> 
 
 <script type="text/javascript">
       $(document).ready(function() {

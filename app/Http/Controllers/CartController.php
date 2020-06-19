@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
 use Cart;
 use DB;
 
@@ -48,7 +49,7 @@ class CartController extends Controller
     	return response()->json($content);
     }
 
-    public function ProductAddCart(Request $resuest,$id)
+    public function ProductAddCart(Request $request,$id)
     {
         //print_r($resuest);exit;
         $product=DB::table('products')->where('id',$id)->first();
@@ -56,12 +57,12 @@ class CartController extends Controller
         if ($product->discount_price == NULL) {
             $data['id']=$product->id;
             $data['name']=$product->product_name;
-            $data['qty']=$resuest->qty;
+            $data['qty']=$request->qty;
             $data['price']= $product->selling_price;          
             $data['weight']=1;
             $data['options']['image']=$product->image_one;
-            $data['options']['color']=$resuest->product_color;
-            $data['options']['size']=$resuest->product_size;
+            $data['options']['color']=$request->product_color;
+            $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
             $data['options']['size_list']= $product->product_size;  
             Cart::add($data);
@@ -73,12 +74,12 @@ class CartController extends Controller
         }else{
             $data['id']=$product->id;
             $data['name']=$product->product_name;
-            $data['qty']=$resuest->qty;
+            $data['qty']=$request->qty;
             $data['price']= $product->discount_price;          
             $data['weight']=1;
             $data['options']['image']=$product->image_one;  
-            $data['options']['color']=$resuest->product_color;
-            $data['options']['size']=$resuest->product_size;
+            $data['options']['color']=$request->product_color;
+            $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
             $data['options']['size_list']= $product->product_size;  
             Cart::add($data);  
@@ -113,13 +114,11 @@ class CartController extends Controller
         $size_list = $request->size_list;
         $color_list = $request->color_list;
         $image_list = $request->img_list;
-       // Cart::update($rowId, ['options'  => ['size' => 'small']]);
         
         foreach ($cart_rowids as $index => $cart_rowid){
                 $data=array();
                 $data['qty']=$qtys[$index];
                 $data['options']['image']=$image_list[$index];  
-                //$data['options']['color']= isset($product_colors[$index]) ? $product_colors[$index] : ''; 
                 $data['options']['color']= ($product_colors[$index] != '0' ? $product_colors[$index] : ''); 
                 $data['options']['size']= ($product_sizes[$index] != '0' ? $product_sizes[$index] : '');
                 $data['options']['color_list']= $color_list[$index];
@@ -127,14 +126,77 @@ class CartController extends Controller
                 $rowId = $cart_rowid;
                 //$qty = $qtys[$index];
                 Cart::update($rowId, $data);
-                //Cart::update($rowId, $qtys[$index]); 
-                // Cart::update($rowId, 
-                //     ['options'  => ['color' => $product_colors[$index]]], 
-                //     ['options'  => ['size' => $product_sizes[$index]]]
-                //     );
+                
         }
         
         return Redirect()->back();                      
+    }
+
+    public function ViewProduct($product_id)
+    {
+        $price=0; 
+        $product_info = DB::table('products')
+                                 ->join('brands','products.brand_id','=','brands.id')
+                                 ->join('categories','products.category_id','=','categories.id')
+                                 ->select('products.*','brands.brand_name','categories.category_name')
+                                 ->where('products.id',$product_id)
+                                 ->where('products.status',1)
+                                 ->first();
+        $product_color= explode(',', $product_info->product_color); 
+        $product_size= explode(',', $product_info->product_size);
+        if($product_info->discount_price == NULL){ $price = $product_info->selling_price; }
+        else{ $price=$product_info->discount_price;} 
+        
+       // return response()->json($product_color);
+        return response::json(array(
+                'product' => $product_info,
+                'price' => $price,
+                'color' => $product_color,
+                 'size' => $product_size,
+         ));                        
+               
+    }
+
+    public function InsertCart(Request $request)
+    {
+        $id= $request->product_id;
+        $product=DB::table('products')->where('id',$id)->first();
+        $data=array();
+        if ($product->discount_price == NULL) {
+            $data['id']=$product->id;
+            $data['name']=$product->product_name;
+            $data['qty']=$request->qty;
+            $data['price']= $product->selling_price;          
+            $data['weight']=1;
+            $data['options']['image']=$product->image_one;
+            $data['options']['color']=$request->color;
+            $data['options']['size']=$request->product_size;
+            $data['options']['color_list']= $product->product_color;
+            $data['options']['size_list']= $product->product_size;  
+            Cart::add($data);
+            $notification=array(
+                'messege'=>'Product Added on your Cart',
+                'alert-type'=>'success'
+                 );
+            return Redirect()->back()->with($notification);
+        }else{
+            $data['id']=$product->id;
+            $data['name']=$product->product_name;
+            $data['qty']=$request->qty;
+            $data['price']= $product->discount_price;          
+            $data['weight']=1;
+            $data['options']['image']=$product->image_one;  
+            $data['options']['color']=$request->color;
+            $data['options']['size']=$request->product_size;
+            $data['options']['color_list']= $product->product_color;
+            $data['options']['size_list']= $product->product_size;  
+            Cart::add($data);  
+            $notification=array(
+                'messege'=>'Product Added on your Cart',
+                'alert-type'=>'success'
+                 );
+            return Redirect()->back()->with($notification);  
+         }
     }
 
 }

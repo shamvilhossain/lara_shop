@@ -112,14 +112,14 @@
                <table class="aa-totals-table">
                  <tbody>
                    <tr>
-                     <th>Total</th>
-                     <td>$ {{Cart::total()}}</td>
+                     <th>Sub Total</th>
+                     <td>$ {{Cart::Subtotal()}}</td>
                    </tr>
                    <tr>
                      <th>Vat 4.5%</th>
                      <td>
                        <?php 
-                        $total = (double) str_replace(',','',Cart::total());
+                        $total = (double) str_replace(',','',Cart::Subtotal());
                         $vat= (($total * 4.5)/100);
                         echo '$ '.$vat;
                        ?>
