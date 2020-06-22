@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Response;
 use Cart;
 use DB;
-
+use Auth;
+use Session;
 class CartController extends Controller
 {
     public function AddCart($id)
@@ -152,7 +153,7 @@ class CartController extends Controller
                 'product' => $product_info,
                 'price' => $price,
                 'color' => $product_color,
-                 'size' => $product_size,
+                'size' => $product_size,
          ));                        
                
     }
@@ -197,6 +198,69 @@ class CartController extends Controller
                  );
             return Redirect()->back()->with($notification);  
          }
+    }
+
+    public function Checkout()
+    {
+        if(Auth::check()){
+            $cart = Cart::content();
+            return view('pages.checkout',compact('cart'));
+        }else{
+            $notification=array(
+                'messege'=>'At First Login Your Account',
+                'alert-type'=>'warning'
+                 );
+            return redirect()->route('login')->with($notification);
+        }
+        
+    }
+
+    public function Wishlist()
+    {
+        $user_id=Auth::id();
+        $product = DB::table('wishlists')
+         ->join('products','wishlists.product_id','=','products.id')
+         ->select('products.*','wishlists.user_id')
+         ->where('wishlists.user_id',$user_id)
+         ->get();
+
+        return view('pages.wishlist',compact('product'));
+    }
+
+    public function Coupon(Request $request)
+    {
+        $coupon=$request->coupon;
+        $check = DB::table('coupons')->where('coupon',$coupon)->first();
+        if($check){
+            session::put('coupon',[
+                'name'=> $check->coupon,
+                'discount'=> $check->discount,
+                'balance'=> Cart::Subtotal() - $check->discount
+            ]);
+            $notification=array(
+                'messege'=>'Successfully Coupon Applied !',
+                'alert-type'=>'success'
+                 );
+            return redirect()->back()->with($notification);
+        }else{
+            $notification=array(
+                'messege'=>'Invalid Coupon',
+                'alert-type'=>'error'
+                 );
+            return redirect()->back()->with($notification);
+        }
+        
+    }
+
+    public function CouponRemove()
+    {
+        session::forget('coupon');
+        $notification=array(
+                'messege'=>'Coupon Removed!',
+                'alert-type'=>'warning'
+                 );
+        return redirect()->back()->with($notification);
+        
     }
 
 }

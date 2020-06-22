@@ -116,6 +116,10 @@
                      <td>$ {{Cart::Subtotal()}}</td>
                    </tr>
                    <tr>
+                     <th>Shipping Charge</th>
+                     <td>$ {{Cart::Subtotal()}}</td>
+                   </tr>
+                   <tr>
                      <th>Vat 4.5%</th>
                      <td>
                        <?php 
@@ -129,7 +133,7 @@
                      <th>Grand Total</th>
                      <td>$ {{$grand_total = $total + $vat}}
 
-<?php Session::put('grand_total',$grand_total); ?>
+                      <?php Session::put('grand_total',$grand_total); ?>
                      </td>
                    </tr>
                  </tbody>
@@ -139,10 +143,11 @@
                   if($customer_id!=null){
 
                ?>
-               <a href="{{URL::to('/payment')}}" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="{{URL::to('/payment')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
                <?php }else{ ?>
-               <a href="{{URL::to('/customer-registration')}}" class="aa-cart-view-btn">Proced to Checkout</a>
+               <a href="{{URL::to('/customer-registration')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
                <?php } ?>
+                <a href="{{ route('user.checkout')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
              </div>
            </div>
          </div>

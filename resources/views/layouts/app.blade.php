@@ -105,14 +105,14 @@
                 <ul class="aa-head-top-nav-right">
                     
                     <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
-                    <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
+                    <li class="hidden-xs"><a href="{{ route('user.checkout')}}">Checkout</a></li>
                   @guest
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                   @else
                    @php
                     $wishlists=DB::table('wishlists')->where('user_id',Auth::id())->get();
                    @endphp  
-                    <li class="hidden-xs"><a href="wishlist.html">Wishlist ({{count($wishlists)}})</a></li>
+                    <li class="hidden-xs"><a href="{{ route('user.wishlist')}}">Wishlist ({{count($wishlists)}})</a></li>
                     <li><a href="{{route('home')}}">My Account</a></li>           
                   @endguest
                     

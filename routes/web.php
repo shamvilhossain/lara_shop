@@ -98,6 +98,10 @@ Route::get('remove/cart/{rowId}','CartController@RemoveCart');
 Route::post('/update-cart','CartController@UpdateCart');
 Route::get('cart/product/view/{id}','CartController@ViewProduct');
 Route::post('insert/into/cart','CartController@InsertCart')->name('insert.into.cart');
+Route::get('user/checkout','CartController@Checkout')->name('user.checkout');
+Route::get('user/wishlist','CartController@Wishlist')->name('user.wishlist');
+Route::post('user/apply/coupon','CartController@Coupon')->name('apply.coupon');
+Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
 
 //Products frontend==========
 Route::get('product/details/{id}/{product_name}','ProductController@ProductView');
