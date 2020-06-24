@@ -42,6 +42,7 @@
                 <?php }  ?>
               </li>
               @endforeach
+              <li><a href="{{route('blog.post')}}">Blog</a></li>
              {{-- <li><a href="#">Sports</a></li>
              
               <li><a href="#">Pages <span class="caret"></span></a>

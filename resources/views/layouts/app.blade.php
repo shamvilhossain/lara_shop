@@ -53,7 +53,9 @@
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
-
+ @php
+  $language = session()->get('lang');
+ @endphp
 
   <!-- Start header section -->
   <header id="aa-header">
@@ -69,12 +71,21 @@
                 <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      @if(session()->get('lang')=='bangla')
+                      <img src="{{asset('public/frontend/img/flag/bangla.png')}}" alt="english flag">BANGLA
+                      @else  
                       <img src="{{asset('public/frontend/img/flag/english.jpg')}}" alt="english flag">ENGLISH
+                      @endif
                       <span class="caret"></span>
                     </a>
+
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="{{asset('public/frontend/img/flag/french.jpg')}}" alt="">FRENCH</a></li>
-                      <li><a href="#"><img src="{{asset('public/frontend/img/flag/english.jpg')}}" alt="">ENGLISH</a></li>
+                    @if(session()->get('lang')=='bangla')
+                      <li><a href="{{route('language.english')}}"><img src="{{asset('public/frontend/img/flag/english.jpg')}}" alt="">ENGLISH</a></li>
+                    @else  
+                      <li><a href="{{route('language.bangla')}}"><img src="{{asset('public/frontend/img/flag/bangla.png')}}" alt="">BANGLA</a></li>
+                    @endif  
+                      
                     </ul>
                   </div>
                 </div>
@@ -138,7 +149,12 @@
                 <!-- Text based logo -->
                 <a href="{{url('/')}}">
                   <span class="fa fa-shopping-cart"></span>
-                  <p>Lara<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                  @if(session()->get('lang')=='bangla')
+                    <p>লারা<strong>শপ</strong> <span>আপনার কেনাকাটার সঙ্গী  </span></p>
+                  @else
+                    <p>Lara<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                  @endif
+                  
                 </a>
                 <!-- img based logo -->
                 <!-- <a href="index.html"><img src="img/logo.jpg" alt="logo img"></a> -->

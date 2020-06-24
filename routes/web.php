@@ -103,8 +103,14 @@ Route::get('user/wishlist','CartController@Wishlist')->name('user.wishlist');
 Route::post('user/apply/coupon','CartController@Coupon')->name('apply.coupon');
 Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
 
+
 //Products frontend==========
 Route::get('product/details/{id}/{product_name}','ProductController@ProductView');
 Route::post('cart/product/add/{product_id}','CartController@ProductAddCart');
+
+//Blogs frontend==========
+Route::get('blog/post/','BlogController@blog')->name('blog.post');
+Route::get('blog/bangla/','BlogController@Bangla')->name('language.bangla');
+Route::get('blog/english/','BlogController@English')->name('language.english');
 
 // customer profile related routes (email must be verified)
