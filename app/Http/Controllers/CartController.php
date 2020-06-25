@@ -204,7 +204,9 @@ class CartController extends Controller
     {
         if(Auth::check()){
             $cart = Cart::content();
-            return view('pages.checkout',compact('cart'));
+            $customer_id = Auth::id();
+            $customer_info = DB::table('users')->where('id',$customer_id)->first();
+            return view('pages.checkout',compact('cart','customer_info'));
         }else{
             $notification=array(
                 'messege'=>'At First Login Your Account',

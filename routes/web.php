@@ -103,6 +103,8 @@ Route::get('user/wishlist','CartController@Wishlist')->name('user.wishlist');
 Route::post('user/apply/coupon','CartController@Coupon')->name('apply.coupon');
 Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
 
+//Payment ===========
+Route::post('user/payment/process','PaymentController@Payment')->name('payment.process');
 
 //Products frontend==========
 Route::get('product/details/{id}/{product_name}','ProductController@ProductView');

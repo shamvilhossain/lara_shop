@@ -40,6 +40,7 @@
                     </div>
                     @endif
 
+                    {!! Form::open(['route' => 'payment.process','method' => 'post']) !!} 
                     <!-- Shipping Address -->
                     <div class="panel panel-default aa-checkout-billaddress">
                       <div class="panel-heading">
@@ -49,33 +50,29 @@
                           </a>
                         </h4>
                       </div>
-                    
+                     
                       <div id="collapseFour" class="panel-collapse collapse in">
                         <div class="panel-body">
                          <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="first_name" value="" placeholder="First Name*">
+                                <input type="text" name="name" value="{{ $customer_info->name ? $customer_info->name : '' }}" placeholder="Full Name*">
                                 <input type="hidden" name="customer_id" value="" >
                                
                               </div>                             
                             </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" name="last_name" value="" placeholder="Last Name*">
-                              </div>
-                            </div>
+                            
                           </div> 
                           
                           <div class="row">
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="email" name="email_address" value="" placeholder="Email Address*">
+                                <input type="email" name="email" value="{{ $customer_info->email ? $customer_info->email : '' }}" placeholder="Email Address*">
                               </div>                             
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" name="mobile" value="" placeholder="Mobile*">
+                                <input type="tel" name="phone" value="{{ $customer_info->phone ? $customer_info->phone : '' }}" placeholder="Phone*">
                               </div>
                             </div>
                           </div> 
@@ -86,7 +83,7 @@
                               </div>                             
                             </div>                            
                           </div>   
-                          <div class="row">
+                          <!-- <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
                                 <select name="country">
@@ -95,32 +92,20 @@
                                   <option value="2">Afganistan</option>
                                   <option value="3">Bangladesh</option>
                                   <option value="4">Belgium</option>
-                                  <option value="5">Brazil</option>
-                                  <option value="6">Canada</option>
-                                  <option value="7">China</option>
-                                  <option value="8">Denmark</option>
-                                  <option value="9">Egypt</option>
-                                  <option value="10">India</option>
-                                  <option value="11">Iran</option>
-                                  <option value="12">Israel</option>
-                                  <option value="13">Mexico</option>
-                                  <option value="14">UAE</option>
-                                  <option value="15">UK</option>
-                                  <option value="16">USA</option>
                                 </select>
                               </div>                             
                             </div>                            
-                          </div>
+                          </div> -->
                           <div class="row">
                            
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="city" placeholder="City / Town*">
+                                <input type="text" name="city" value="" placeholder="City / Town*" required>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="zip_code" placeholder="Postcode / ZIP*">
+                                <input type="text" name="zip_code" value="" placeholder="Postcode / ZIP*">
                               </div>
                             </div>
                           </div>
@@ -128,86 +113,12 @@
                         </div>
                       </div>
                     </div>
-                    
-                    <!-- Login section -->
-                    <div class="panel panel-default aa-checkout-login">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Client Login 
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                          <input type="text" placeholder="Username or email">
-                          <input type="password" placeholder="Password">
-                          <button type="button" class="aa-browse-btn">Login</button>
-                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Billing Details -->
-                    <div class="panel panel-default aa-checkout-billaddress">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                            Billing Details
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                         {!! Form::open(['url' => '','method' => 'post']) !!}   
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" name="first_name" placeholder="First Name*">
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" name="last_name" placeholder="Last Name*">
-                              </div>
-                            </div>
-                          </div> 
-                           
-                          <div class="row">
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                              
-                                <input type="email" name="email_address" placeholder="Email Address*" >
-                              </div>                             
-                            </div>
-                            <div class="col-md-6">
-                              <div class="aa-checkout-single-bill">
-                                <input type="password" name="password"  placeholder="Password*">
-                              </div>
-                            </div>
-                          </div> 
-   
-                          <div class="row">
-                            
-                            <div class="col-md-12">
-                              <div class="aa-checkout-single-bill">
-                                <input type="text" name="mobile" placeholder="Mobile">
-                              </div>
-                               <button type="submit" class="aa-browse-btn">Login</button>
-                            </div>
-
-                          </div> 
-                          {!! Form::close() !!}                                    
-                        </div>
-                      </div>
-                    </div>
-
-                    
+                     
                    
                   </div>
                 </div>
               </div>
+
               <div class="col-md-4">
                 <div class="checkout-right">
                   <h4>Order Summary</h4>
@@ -280,11 +191,11 @@
                     <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
                     <input type="submit" value="Place Order" class="aa-browse-btn">                
                   </div>
-                  
+                      {!! Form::close() !!}  
                 </div>
               </div>
             </div>
-      
+  
          </div>
        </div>
      </div>
