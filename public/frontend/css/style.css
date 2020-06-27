@@ -2596,8 +2596,8 @@ img {
   font-weight: normal;
 }
 #checkout .checkout-area .checkout-right .aa-payment-method img {
-  margin-top: -10px;
-  width: 80%;
+  margin-top: -4px;
+  /*width: 55%;*/
 }
 #checkout .checkout-area .checkout-right .aa-payment-method input[type="submit"] {
   display: block;

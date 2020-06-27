@@ -728,46 +728,4 @@
 
 </script>
 
-<script type="text/javascript">
-      $(document).ready(function() {
-            $('.addwishlist').on('click', function(e){  
-              e.preventDefault();
-              var id = $(this).data('id');
-              //var id = $(this).attr('data-id');
-              if(id) {
-                 $.ajax({
-                     url: "{{  url('/add/wishlist/') }}/"+id,
-                     type:"GET",
-                     dataType:"json",
-                     success:function(data) {
-                       const Toast = Swal.mixin({
-                          toast: true,
-                          position: 'top-end',
-                          showConfirmButton: false,
-                          timer: 3000
-                        })
-
-                       if($.isEmptyObject(data.error)){
-                            Toast.fire({
-                              type: 'success',
-                              title: data.success
-                            })
-                       }else{
-                             Toast.fire({
-                                type: 'error',
-                                title: data.error
-                            })
-                       }
-
-                     },
-                    
-                 });
-             } else {
-                 alert('danger');
-             }
-              e.preventDefault();
-         });
-     });
-
-</script>
 @endsection

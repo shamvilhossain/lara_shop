@@ -4,6 +4,8 @@
 <?php 
   $setting=DB::table('settings')->first();
   $shipping_charge = $setting->shipping_charge;
+  $cart=Cart::content();
+  $customer_info = DB::table('users')->where('id',Auth::id())->first();
 ?>
 
  <section id="checkout">

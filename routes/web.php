@@ -87,6 +87,8 @@ Route::get('edit/post/{id}','Admin\PostController@edit');
 Route::post('update/post/{id}','Admin\PostController@update');
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
+Route::get('products/{id}','ProductController@SubCategoryProduct');
+
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
 
