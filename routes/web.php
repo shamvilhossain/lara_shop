@@ -107,6 +107,7 @@ Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
 
 //Payment ===========
 Route::post('user/payment/process','PaymentController@Payment')->name('payment.process');
+Route::post('user/payment/charge','PaymentController@StripeCharge')->name('stripe.charge');
 
 //Products frontend==========
 Route::get('product/details/{id}/{product_name}','ProductController@ProductView');
