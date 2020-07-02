@@ -199,6 +199,7 @@
                                    <input type="hidden" name="ship_address" value="{{$data['address']}}" > 
                                    <input type="hidden" name="ship_city" value="{{$data['city']}}" > 
                                    <input type="hidden" name="ship_zip_code" value="{{$data['zip_code']}}" > 
+                                   <input type="hidden" name="payment_type" value="{{$data['payment_type']}}" > 
                                   <button class="btn btn-info">Pay Now</button>
                                 </form>     
 

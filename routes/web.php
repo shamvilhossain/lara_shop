@@ -78,13 +78,20 @@ Route::get('view/product/{id}','Admin\ProductController@ViewProduct');
         // get subcat by ajax
 Route::get('get/subcategory/{category_id}','Admin\ProductController@GetSubcat');
 
-//Posts==========
+//Admin Posts==========
 Route::get('admin/add/post', 'Admin\PostController@create')->name('add.blogpost');
 Route::post('admin/store/post', 'Admin\PostController@store')->name('store.post');
 Route::get('admin/all/post', 'Admin\PostController@index')->name('all.blogpost');
 Route::get('delete/post/{id}','Admin\PostController@destroy');
 Route::get('edit/post/{id}','Admin\PostController@edit');
 Route::post('update/post/{id}','Admin\PostController@update');
+
+//Admin order Routes==========
+Route::get('admin/pending/order', 'Admin\OrderController@NewOrder')->name('admin.neworder');
+Route::get('admin/view/order/{id}', 'Admin\OrderController@ViewOrder');
+Route::get('admin/payment/accept/{id}', 'Admin\OrderController@PaymentAccept');
+Route::get('admin/payment/cancel/{id}', 'Admin\OrderController@PaymentCancel');
+
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
 Route::get('products/{id}','ProductController@SubCategoryProduct');

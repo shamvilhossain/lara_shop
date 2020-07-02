@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('shipping')->nullable();
             $table->string('vat')->nullable();
             $table->string('total')->nullable();
+            $table->string('payment_type')->nullable();
             $table->string('status')->nullable()->default(0);
             $table->string('month')->nullable();
             $table->string('date')->nullable();

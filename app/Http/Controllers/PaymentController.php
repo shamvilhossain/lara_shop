@@ -68,7 +68,7 @@ class PaymentController extends Controller
 			$data['shipping']=$request->shipping;
 			$data['vat']=$request->vat;
 			$data['total']=$request->total;
-            //$data['payment_type']=$request->payment_type;
+            $data['payment_type']=$request->payment_type;
 			 if (Session::has('coupon')) {
 			 	 $data['subtotal']=Session::get('coupon')['balance'];
     	     }else{
