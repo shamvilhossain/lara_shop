@@ -105,9 +105,12 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{route('admin.neworder')}}" class="nav-link">New Order</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Example</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Example</a></li>
+          <li class="nav-item"><a href="{{route('admin.neworder')}}" class="nav-link">New Pending Orders</a></li>
+          <li class="nav-item"><a href="{{route('admin.accept.payment')}}" class="nav-link">Accept Payment</a></li>
+          <li class="nav-item"><a href="{{route('admin.progress.delivery')}}" class="nav-link">Delivery Progress</a></li>
+          <li class="nav-item"><a href="{{route('admin.success.delivery')}}" class="nav-link">Delivery Success</a></li>
+          <li class="nav-item"><a href="{{route('admin.cancel.order')}}" class="nav-link">Canceled Orders</a></li>
+          
         </ul>
 
         <a href="#" class="sl-menu-link">
@@ -151,7 +154,7 @@
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{route('admin.newslater')}}" class="nav-link">NewsLaters</a></li>
           <li class="nav-item"><a href="{{route('admin.main_sliders')}}" class="nav-link">Main Sliders</a></li>
-          <li class="nav-item"><a href="page-signup.html" class="nav-link">Signup Page</a></li>
+          <li class="nav-item"><a href="{{route('admin.seo')}}" class="nav-link">SEO Settings</a></li>
           <li class="nav-item"><a href="page-notfound.html" class="nav-link">404 Page Not Found</a></li>
         </ul>
       </div><!-- sl-sideleft-menu -->

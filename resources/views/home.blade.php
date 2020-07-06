@@ -21,15 +21,18 @@
              <tbody>
               
                <tr>
-                 <th >a</th>
-                 <td>a</td>
-                 <td>a</td>
-                 <td>a</td>
-                 <td>a</td>
-                 <td>a</td>
+                @foreach($order as $row)
+                 <td>{{$row->payment_type}}</td>
+                 <td>{{$row->payment_id}}</td>
+                 <td>{{$row->total}} $</td> 
+                 <td>{{$row->date}}</td>
+                 <td>{{$row->status_code}}</td>
+                 <td>{{$row->status}}</td>
                  <td>
                    <a href="#" class="btn btn-sm btn-info">View</a>
                  </td>
+                @endforeach 
+                 
                </tr>
               
              </tbody>

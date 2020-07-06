@@ -14,6 +14,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\CouponController' => $baseDir . '/app/Http/Controllers/Admin/CouponController.php',
     'App\\Http\\Controllers\\Admin\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Admin/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Admin\\LoginController' => $baseDir . '/app/Http/Controllers/Admin/LoginController.php',
+    'App\\Http\\Controllers\\Admin\\OrderController' => $baseDir . '/app/Http/Controllers/Admin/OrderController.php',
     'App\\Http\\Controllers\\Admin\\PostController' => $baseDir . '/app/Http/Controllers/Admin/PostController.php',
     'App\\Http\\Controllers\\Admin\\ProductController' => $baseDir . '/app/Http/Controllers/Admin/ProductController.php',
     'App\\Http\\Controllers\\Admin\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Admin/ResetPasswordController.php',

@@ -15,8 +15,8 @@ class OrderController extends Controller
 
     public function NewOrder()
     {
-    	 $order=DB::table('orders')->where('status',0)->get();
-    	 return view('admin.order.pending',compact('order'));
+    	$order=DB::table('orders')->where('status',0)->get();
+    	return view('admin.order.pending',compact('order'));
     }
 
     public function ViewOrder($id)
@@ -52,6 +52,50 @@ class OrderController extends Controller
               'alert-type'=>'error'
         );
         return Redirect()->route('admin.neworder')->with($notification);
+    }
+
+    public function AcceptPaymentOrder()
+    {
+    	$order=DB::table('orders')->where('status',1)->get();
+    	return view('admin.order.pending',compact('order'));
+    }
+
+    public function CancelPaymentOrder()
+    {
+    	$order=DB::table('orders')->where('status',4)->get();
+    	return view('admin.order.pending',compact('order'));
+    }
+
+    public function ProgressDeliveryOrder()
+    {
+    	$order=DB::table('orders')->where('status',2)->get();
+    	return view('admin.order.pending',compact('order'));
+    }
+
+    public function SuccessDeliveryOrder()
+    {
+    	$order=DB::table('orders')->where('status',3)->get();
+    	return view('admin.order.pending',compact('order'));
+    }
+
+    public function DeliveryProgress($id)
+    {
+    	DB::table('orders')->where('id',$id)->update(['status'=>2]);
+    	$notification=array(
+              'messege'=>'Sent to Delivery',
+              'alert-type'=>'success'
+        );
+        return Redirect()->route('admin.accept.payment')->with($notification);
+    }
+
+    public function DeliveryDone($id)
+    {
+    	DB::table('orders')->where('id',$id)->update(['status'=>3]);
+    	$notification=array(
+              'messege'=>'Delivery Done',
+              'alert-type'=>'success'
+        );
+        return Redirect()->route('admin.success.delivery')->with($notification);
     }
 
 }

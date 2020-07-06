@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -25,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $order = DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->get();
+      return view('home',compact('order'));
     }
 
     public function changePassword(){

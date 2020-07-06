@@ -91,7 +91,7 @@
          	    		 		    @elseif($order->status == 2) 
          	    		 		     <span class="badge badge-info">Progress </span>
          	    		 		     @elseif($order->status == 3)  
-         	    		 		     <span class="badge badge-success">Delevered </span>
+         	    		 		     <span class="badge badge-success">Delivered </span>
          	    		 		     @else
          	    		 		     <span class="badge badge-danger">Cancel </span>
          	    		 		     @endif
@@ -162,14 +162,11 @@
           @elseif($order->status == 4)
             <strong class="text-danger">This order are not valid its canceled</strong>
             @else
-             <strong class="text-success">This product are succesfully delevered</strong>
+             <strong class="text-success">This product are succesfully delivered</strong>
             @endif
                  
       </div>
     </div>
-
-
-
 
 
 @endsection

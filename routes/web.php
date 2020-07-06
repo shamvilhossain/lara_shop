@@ -63,6 +63,8 @@ Route::post('admin/store/slider', 'Admin\SliderController@store')->name('store.s
 Route::get('delete/slider/{id}','Admin\SliderController@destroy');
 Route::get('edit/slider/{id}','Admin\SliderController@edit');
 Route::post('update/slider/{id}','Admin\SliderController@update');
+Route::get('admin/seo','Admin\CouponController@Seo')->name('admin.seo');
+Route::post('admin/update/seo','Admin\CouponController@UpdateSeo')->name('update.seo');
 
 //Products backend==========
 Route::get('admin/product/all', 'Admin\ProductController@index')->name('all.product');
@@ -91,10 +93,17 @@ Route::get('admin/pending/order', 'Admin\OrderController@NewOrder')->name('admin
 Route::get('admin/view/order/{id}', 'Admin\OrderController@ViewOrder');
 Route::get('admin/payment/accept/{id}', 'Admin\OrderController@PaymentAccept');
 Route::get('admin/payment/cancel/{id}', 'Admin\OrderController@PaymentCancel');
+Route::get('admin/accept/payment', 'Admin\OrderController@AcceptPaymentOrder')->name('admin.accept.payment');
+Route::get('admin/cancel/payment', 'Admin\OrderController@CancelPaymentOrder')->name('admin.cancel.order');
+Route::get('admin/progress/delivery', 'Admin\OrderController@ProgressDeliveryOrder')->name('admin.progress.delivery');
+Route::get('admin/success/delivery', 'Admin\OrderController@SuccessDeliveryOrder')->name('admin.success.delivery');
+Route::get('admin/delevery/progress/{id}', 'Admin\OrderController@DeliveryProgress');
+Route::get('admin/delevery/done/{id}', 'Admin\OrderController@DeliveryDone');
 
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
 Route::get('products/{id}','ProductController@SubCategoryProduct');
+Route::post('order/tracking', 'FrontController@OrderTracking')->name('order.tracking');
 
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');

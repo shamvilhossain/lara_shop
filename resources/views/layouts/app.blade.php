@@ -115,8 +115,9 @@
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                     
-                    <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
+                    
                     <li class="hidden-xs"><a href="{{ route('user.checkout')}}">Checkout</a></li>
+                    <li class="hidden-xs"><a href="" data-toggle="modal" data-target="#track-modal">Order Tracking</a></li>  
                   @guest
                     <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                   @else
@@ -124,7 +125,8 @@
                     $wishlists=DB::table('wishlists')->where('user_id',Auth::id())->get();
                    @endphp  
                     <li class="hidden-xs"><a href="{{ route('user.wishlist')}}">Wishlist ({{count($wishlists)}})</a></li>
-                    <li><a href="{{route('home')}}">My Account</a></li>           
+                    <li><a href="{{route('home')}}">Profile</a></li>  
+                    <li class="hidden-xs"><a href="{{ route('user.logout') }}">Logout</a></li>         
                   @endguest
                     
                   
@@ -334,7 +336,28 @@
         </div>                        
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div>    
+  </div>   
+
+
+  <!-- Order Tracking Modal -->  
+  <div class="modal fade" id="track-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">                      
+        <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4>Track Your Order</h4>
+          <form class="aa-login-form" action="{{route('order.tracking')}}" method="post">
+            @csrf
+            <input type="text" name="code" placeholder="Order Status Code">
+            <button class="aa-browse-btn" type="submit">Submit</button>
+            <br/>
+            <br/>
+            <br/>
+          </form>
+        </div>                        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>   
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
