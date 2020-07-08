@@ -100,6 +100,23 @@ Route::get('admin/success/delivery', 'Admin\OrderController@SuccessDeliveryOrder
 Route::get('admin/delevery/progress/{id}', 'Admin\OrderController@DeliveryProgress');
 Route::get('admin/delevery/done/{id}', 'Admin\OrderController@DeliveryDone');
 
+//Admin Reports==========
+Route::get('admin/today/order', 'Admin\ReportController@TodayOrder')->name('today.order');
+Route::get('admin/today/deleverd', 'Admin\ReportController@TodayDelevered')->name('today.delevered');
+Route::get('admin/this/month', 'Admin\ReportController@ThisMonth')->name('this.month');
+Route::get('admin/search/report', 'Admin\ReportController@search')->name('search.report');
+Route::post('admin/search/byyear', 'Admin\ReportController@searchByYear')->name('search.by.year');
+Route::post('admin/search/bymonth', 'Admin\ReportController@searchByMonth')->name('search.by.month');
+Route::post('admin/search/bydate', 'Admin\ReportController@searchByDate')->name('search.by.date');
+
+//User Roles==========
+Route::get('admin/create/role', 'Admin\UserRoleController@User_role')->name('create.user.role');
+Route::get('admin/create/admin', 'Admin\UserRoleController@UserCreate')->name('create.admin');
+Route::post('admin/store/admin', 'Admin\UserRoleController@UserStore')->name('store.admin');
+Route::get('delete/admin/{id}', 'Admin\UserRoleController@UserDelete');
+Route::get('edit/admin/{id}', 'Admin\UserRoleController@UserEdit');
+Route::post('admin/update/admin', 'Admin\UserRoleController@UserUpdate')->name('update.admin');
+
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
 Route::get('products/{id}','ProductController@SubCategoryProduct');

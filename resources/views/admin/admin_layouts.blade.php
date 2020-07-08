@@ -128,15 +128,88 @@
 
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-            <span class="menu-item-label">Tables</span>
+            <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
+            <span class="menu-item-label">Reports</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="table-basic.html" class="nav-link">Basic Table</a></li>
-          <li class="nav-item"><a href="table-datatable.html" class="nav-link">Data Table</a></li>
+          <li class="nav-item"><a href="{{ route('today.order') }}" class="nav-link">Today Order</a></li>
+          <li class="nav-item"><a href="{{ route('today.delevered') }}" class="nav-link">Today Delevered</a></li>
+          <li class="nav-item"><a href="{{ route('this.month') }}" class="nav-link">This Month</a></li>
+          <li class="nav-item"><a href="{{ route('search.report') }}" class="nav-link">Search Report</a></li>
         </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+            <span class="menu-item-label">User Role</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('create.admin')}}" class="nav-link">Create User</a></li>
+          <li class="nav-item"><a href="{{route('create.user.role')}}" class="nav-link">All User</a></li>
+        </ul>
+       
+          <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+            <span class="menu-item-label">Return Order</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+              <li class="nav-item"><a href="" class="nav-link">Return Request</a></li>
+               <li class="nav-item"><a href=" " class="nav-link">All Return</a></li>
+        </ul>
+       
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+            <span class="menu-item-label">Product Stock</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+              <li class="nav-item"><a href="" class="nav-link">Stock</a></li>
+        </ul>
+        
+       <a href="#" class="sl-menu-link">
+        <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+          <span class="menu-item-label">Contact Message</span>
+          <i class="menu-item-arrow fa fa-angle-down"></i>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link">New Message</a></li>
+             <li class="nav-item"><a href="#" class="nav-link">All Message</a></li>
+      </ul>
+
+       <a href="#" class="sl-menu-link">
+        <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+          <span class="menu-item-label">Product Comments</span>
+          <i class="menu-item-arrow fa fa-angle-down"></i>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link">New Comment</a></li>
+             <li class="nav-item"><a href="#" class="nav-link">All Comment</a></li>
+      </ul>
+
+      <a href="#" class="sl-menu-link">
+        <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+          <span class="menu-item-label">Site Settings</span>
+          <i class="menu-item-arrow fa fa-angle-down"></i>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link">Site Setting</a></li>
+      </ul>
+
         
         <a href="mailbox.html" class="sl-menu-link">
           <div class="sl-menu-item">
@@ -144,19 +217,7 @@
             <span class="menu-item-label">Mailbox</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-            <span class="menu-item-label">Others</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{route('admin.newslater')}}" class="nav-link">NewsLaters</a></li>
-          <li class="nav-item"><a href="{{route('admin.main_sliders')}}" class="nav-link">Main Sliders</a></li>
-          <li class="nav-item"><a href="{{route('admin.seo')}}" class="nav-link">SEO Settings</a></li>
-          <li class="nav-item"><a href="page-notfound.html" class="nav-link">404 Page Not Found</a></li>
-        </ul>
+       
       </div><!-- sl-sideleft-menu -->
 
       <br>
