@@ -120,4 +120,14 @@ class PaymentController extends Controller
             return Redirect()->to('/')->with($notification);
 			
     }
+
+    public function RequestCancel($id)
+    {
+        DB::table('orders')->where('id',$id)->update(['cancel_order'=>1]);
+        $notification=array(
+            'messege'=>'Order Cancel request done please wait for our confirmation email',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
 }

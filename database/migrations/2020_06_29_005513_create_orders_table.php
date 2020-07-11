@@ -26,6 +26,7 @@ class CreateOrdersTable extends Migration
             $table->string('total')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('status')->nullable()->default(0);
+            $table->string('cancel_order')->nullable()->default(0);
             $table->string('month')->nullable();
             $table->string('date')->nullable();
             $table->string('year')->nullable();

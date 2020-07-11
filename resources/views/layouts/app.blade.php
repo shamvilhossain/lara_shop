@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+ @php
+  $language = session()->get('lang');
+  $setting = DB::table('sitesetting')->first();
+  $first_part= explode(' ',trim($setting->company_name))[0];
+  $last_part= substr(strstr($setting->company_name," "), 1);
+ @endphp
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">  
     <meta name="csrf" value="{{ csrf_token() }}">  
-    <title>Lara Shop | Home</title>
+    <title>{{$setting->company_name}}</title>
     
     <!-- Font awesome -->
     <link href="{{asset('public/frontend/css/font-awesome.css')}}" rel="stylesheet">
@@ -53,9 +59,7 @@
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
   <!-- END SCROLL TOP BUTTON -->
- @php
-  $language = session()->get('lang');
- @endphp
+
 
   <!-- Start header section -->
   <header id="aa-header">
@@ -107,7 +111,7 @@
                 <!-- / currency -->
                 <!-- start cellphone -->
                 <div class="cellphone hidden-xs">
-                  <p><span class="fa fa-phone"></span>00-62-658-658</p>
+                  <p><span class="fa fa-phone"></span>{{$setting->phone_one}}</p>
                 </div>
                 <!-- / cellphone -->
               </div>
@@ -154,7 +158,7 @@
                   @if(session()->get('lang')=='bangla')
                     <p>লারা<strong>শপ</strong> <span>আপনার কেনাকাটার সঙ্গী  </span></p>
                   @else
-                    <p>Lara<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                    <p>{{$first_part }}<strong>{{$last_part}}</strong> <span>Your Shopping Partner</span></p>
                   @endif
                   
                 </a>
@@ -274,15 +278,15 @@
                   <div class="aa-footer-widget">
                     <h3>Contact Us</h3>
                     <address>
-                      <p> 25 Astor Pl, NY 10003, USA</p>
-                      <p><span class="fa fa-phone"></span>+1 212-982-4589</p>
-                      <p><span class="fa fa-envelope"></span>dailyshop@gmail.com</p>
+                      <p> {{$setting->company_address}}</p>
+                      <p><span class="fa fa-phone"></span>{{$setting->phone_two}}</p>
+                      <p><span class="fa fa-envelope"></span>{{$setting->email}}</p>
                     </address>
                     <div class="aa-footer-social">
-                      <a href="#"><span class="fa fa-facebook"></span></a>
-                      <a href="#"><span class="fa fa-twitter"></span></a>
-                      <a href="#"><span class="fa fa-google-plus"></span></a>
-                      <a href="#"><span class="fa fa-youtube"></span></a>
+                      <a href="{{$setting->facebook}}"><span class="fa fa-facebook"></span></a>
+                      <a href="{{$setting->twitter}}"><span class="fa fa-twitter"></span></a>
+                      <a href="{{$setting->instagram}}"><span class="fa fa-instagram"></span></a>
+                      <a href="{{$setting->youtube}}"><span class="fa fa-youtube"></span></a>
                     </div>
                   </div>
                 </div>
@@ -294,23 +298,6 @@
      </div>
     </div>
     <!-- footer-bottom -->
-    <div class="aa-footer-bottom">
-      <div class="container">
-        <div class="row">
-        <div class="col-md-12">
-          <div class="aa-footer-bottom-area">
-            <p>Designed by <a href="http://www.markups.io/">MarkUps.io</a></p>
-            <div class="aa-footer-payment">
-              <span class="fa fa-cc-mastercard"></span>
-              <span class="fa fa-cc-visa"></span>
-              <span class="fa fa-paypal"></span>
-              <span class="fa fa-cc-discover"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
   </footer>
   <!-- / footer -->
 
@@ -451,8 +438,28 @@
                  }
                   e.preventDefault();
              });
+
+            $(document).on("click", "#cancel", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to Cancel Order?",
+                  text: "Once Cancel,You will be returned your money!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Cancel");
+                  }
+                });
+            });
          });
 
     </script>
+
   </body>
 </html>

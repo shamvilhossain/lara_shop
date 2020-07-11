@@ -117,10 +117,20 @@ Route::get('delete/admin/{id}', 'Admin\UserRoleController@UserDelete');
 Route::get('edit/admin/{id}', 'Admin\UserRoleController@UserEdit');
 Route::post('admin/update/admin', 'Admin\UserRoleController@UserUpdate')->name('update.admin');
 
+//site setting
+Route::get('admin/site/setting', 'Admin\SettingController@SiteSetting')->name('admin.site.setting');
+Route::post('admin/update/sitesetting', 'Admin\SettingController@UpdateSetting')->name('update.sitesetting');
+
+//return or cancel products admin panel
+ Route::get('admin/cancel/request', 'Admin\ReturnCancelController@request')->name('admin.cancel.request');
+ Route::get('/admin/approve/cancel/{id}', 'Admin\ReturnCancelController@ApproveCancel');
+ Route::get('admin/all/cancel', 'Admin\ReturnCancelController@AllCancel')->name('admin.all.cancel');
+
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
 Route::get('products/{id}','ProductController@SubCategoryProduct');
 Route::post('order/tracking', 'FrontController@OrderTracking')->name('order.tracking');
+Route::get('request/cancel/{id}', 'PaymentController@RequestCancel');
 
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
