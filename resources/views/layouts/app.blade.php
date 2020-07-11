@@ -7,6 +7,7 @@
   $last_part= substr(strstr($setting->company_name," "), 1);
  @endphp
   <head>
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f09b62ce9f145001203b9d0&product=inline-share-buttons" async="async"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">  
@@ -48,7 +49,9 @@
   
 
   </head>
-  <body> 
+  <body>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=703106813755692&autoLogAppEvents=1" nonce="yQySKgut"></script> 
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">

@@ -97,8 +97,9 @@ Route::get('admin/accept/payment', 'Admin\OrderController@AcceptPaymentOrder')->
 Route::get('admin/cancel/payment', 'Admin\OrderController@CancelPaymentOrder')->name('admin.cancel.order');
 Route::get('admin/progress/delivery', 'Admin\OrderController@ProgressDeliveryOrder')->name('admin.progress.delivery');
 Route::get('admin/success/delivery', 'Admin\OrderController@SuccessDeliveryOrder')->name('admin.success.delivery');
-Route::get('admin/delevery/progress/{id}', 'Admin\OrderController@DeliveryProgress');
-Route::get('admin/delevery/done/{id}', 'Admin\OrderController@DeliveryDone');
+Route::get('admin/delivery/progress/{id}', 'Admin\OrderController@DeliveryProgress');
+Route::get('admin/delivery/done/{id}', 'Admin\OrderController@DeliveryDone');
+Route::get('admin/product/stock', 'Admin\OrderController@Stock')->name('admin.product.stock');
 
 //Admin Reports==========
 Route::get('admin/today/order', 'Admin\ReportController@TodayOrder')->name('today.order');

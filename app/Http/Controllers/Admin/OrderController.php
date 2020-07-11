@@ -88,13 +88,32 @@ class OrderController extends Controller
         return Redirect()->route('admin.accept.payment')->with($notification);
     }
 
+    public function Stock()
+    {
+        $product=DB::table('products')
+                     ->join('categories','products.category_id','categories.id')
+                     ->select('products.*','categories.category_name')
+                     ->get();
+        return view('admin.stock.stock',compact('product'));
+
+    }
+
     public function DeliveryDone($id)
     {
-    	DB::table('orders')->where('id',$id)->update(['status'=>3]);
-    	$notification=array(
-              'messege'=>'Delivery Done',
-              'alert-type'=>'success'
-        );
+
+        $product=DB::table('order_details')->where('order_id',$id)->get();
+
+        foreach ($product as $row) {
+            DB::table('products')
+              ->where('id',$row->product_id)
+              ->update(['product_quantity' => DB::raw('product_quantity -'.$row->quantity)]);
+        }
+
+        DB::table('orders')->where('id',$id)->update(['status'=>3]);
+        $notification=array(
+                 'messege'=>'Send To delevery',
+                 'alert-type'=>'success'
+                       );
         return Redirect()->route('admin.success.delivery')->with($notification);
     }
 
