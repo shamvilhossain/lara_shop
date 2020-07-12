@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
-
+use File;
 class SettingController extends Controller
 {
      public function __construct()
@@ -39,4 +39,37 @@ class SettingController extends Controller
                        );
         return Redirect()->back()->with($notification);
     }
+
+    
+    public function DatabaseBackup()
+    {
+          return view('admin.setting.db_backup')->with('files', File::allFiles('storage/app/Laravel'));
+    }
+
+    public function BackupNow()
+    {
+         \Artisan::call('backup:run');
+         $notification=array(
+                       'messege'=>'Successfully Database Backup ',
+                       'alert-type'=>'success'
+                  );    
+        return Redirect()->back()->with($notification);      
+    }
+
+    public function DeleteDatabase($getFilename)
+    {
+       Storage::delete('Laravel/'.$getFilename);
+       $notification=array(
+                       'messege'=>'Successfully Backup Delete  ',
+                       'alert-type'=>'success'
+                  );    
+        return Redirect()->back()->with($notification);  
+    }
+
+    public function DownloadDatabase($getFilename)
+    {
+        $path=storage_path('app\Laravel/'.$getFilename);
+        return response()->download($path);
+    }
+
 }

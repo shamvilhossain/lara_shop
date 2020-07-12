@@ -122,6 +122,13 @@ Route::post('admin/update/admin', 'Admin\UserRoleController@UserUpdate')->name('
 Route::get('admin/site/setting', 'Admin\SettingController@SiteSetting')->name('admin.site.setting');
 Route::post('admin/update/sitesetting', 'Admin\SettingController@UpdateSetting')->name('update.sitesetting');
 
+//database backup
+Route::get('admin/database/backup', 'Admin\SettingController@DatabaseBackup')->name('admin.database.backup');
+Route::get('admin/database/backup/now', 'Admin\SettingController@BackupNow')->name('admin.backup.now');
+Route::get('delete/database/{getFilename}', 'Admin\SettingController@DeleteDatabase');  
+Route::get('download/{getFilename}', 'Admin\SettingController@DownloadDatabase');  
+
+
 //return or cancel products admin panel
  Route::get('admin/cancel/request', 'Admin\ReturnCancelController@request')->name('admin.cancel.request');
  Route::get('/admin/approve/cancel/{id}', 'Admin\ReturnCancelController@ApproveCancel');

@@ -7,6 +7,8 @@ use Cart;
 use DB;
 use Auth;
 use Session;
+use Mail;
+use App\Mail\invoiceMail;
 class PaymentController extends Controller
 {
     public function __construct()
@@ -39,6 +41,7 @@ class PaymentController extends Controller
 
     public function StripeCharge(Request $request)
     {
+        $email=Auth::user()->email;
     	$total=$request->total;
     	// from https://stripe.com/docs/payments/charges-api
 
@@ -81,6 +84,8 @@ class PaymentController extends Controller
             $data['status_code']=mt_rand(100000,999999); 
     	    $order_id=DB::table('orders')->insertGetId($data);
 
+             Mail::to($email)->send(new invoiceMail($data)); //mail send to user
+
     	    // insert shipping details table
 
     	    	$shipping=array();
@@ -92,6 +97,7 @@ class PaymentController extends Controller
     	    	$shipping['ship_city']=$request->ship_city;
     	    	$shipping['ship_zipcode']=$request->ship_zip_code;
     	    	DB::table('shipping')->insert($shipping);
+                
 
     	    	//insert data into orderdeatils
     	    	$content=Cart::content();
@@ -107,7 +113,7 @@ class PaymentController extends Controller
     	    		$details['totalprice']=$row->qty * $row->price;
     	    		DB::table('order_details')->insert($details);
     	    	}
-
+                
     	    	Cart::destroy();
     	    	 if (Session::has('coupon')) {
 			 	 Session::forget('coupon');

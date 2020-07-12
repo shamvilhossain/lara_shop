@@ -94,7 +94,7 @@ class CartController extends Controller
 
     public function ShowCart()
     {
-        
+        //echo 'asdasd';exit;
         $content = Cart::content();
         return view('pages.cart',compact('content'));
     }
