@@ -160,6 +160,10 @@ Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
 Route::post('user/payment/process','PaymentController@Payment')->name('payment.process');
 Route::post('user/payment/charge','PaymentController@StripeCharge')->name('stripe.charge');
 
+//Route::name('webhooks.mollie')->post('webhooks/mollie', 'MollieWebhookController@handle');
+Route::post('webhooks/mollie','PaymentController@Molliehandle')->name('webhooks.mollie');
+Route::get('/payment-success','PaymentController@MolliepaymentSuccess')->name('payment.success');
+
 //Products frontend==========
 Route::get('product/details/{id}/{product_name}','ProductController@ProductView');
 Route::post('cart/product/add/{product_id}','CartController@ProductAddCart');

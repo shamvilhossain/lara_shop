@@ -4,6 +4,14 @@
 <?php 
   $setting=DB::table('settings')->first();
   $shipping_charge = $setting->shipping_charge;
+  $cart=Cart::content();
+  $total_amount=0;
+  if(Session::has('coupon')){
+    $total_amount = Session::get('coupon')['balance'] + $shipping_charge;
+  }
+  else{
+    $total_amount = Cart::Subtotal() + $shipping_charge;
+  }
 ?>
 
  <section id="checkout">
@@ -185,6 +193,9 @@
                   </div>
 
                   <h4>Payment Method</h4>
+                  <input type="hidden" name="total_amount" value="{{$total_amount}}" >
+                  <input type="hidden" name="shipping" value="{{$setting->shipping_charge}}" > 
+                  <input type="hidden" name="vat" value="{{$setting->vat}}" > 
                   <div class="aa-payment-method">                    
                     <label for="cashdelivery"><input type="radio" id="cashdelivery" name="payment_type" value="cash_on_delivery" checked> Cash on Delivery </label>
                     <label for="paypal"><input type="radio" id="paypal" name="payment_type" value="paypal" > Via Paypal </label>
