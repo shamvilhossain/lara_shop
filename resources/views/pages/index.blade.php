@@ -405,57 +405,7 @@
   </section>
   <!-- / Support section -->
   <!-- Testimonial -->
-  <section id="aa-testimonial">  
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-testimonial-area">
-            <ul class="aa-testimonial-slider">
-              <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{asset('public/frontend/img/testimonial-img-2.jpg')}}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>Allison</p>
-                    <span>Designer</span>
-                    <a href="#">Dribble.com</a>
-                  </div>
-                </div>
-              </li>
-              <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{asset('public/frontend/img/testimonial-img-2.jpg')}}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>KEVIN MEYER</p>
-                    <span>CEO</span>
-                    <a href="#">Alphabet</a>
-                  </div>
-                </div>
-              </li>
-               <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{asset('public/frontend/img/testimonial-img-2.jpg')}}" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>Luner</p>
-                    <span>COO</span>
-                    <a href="#">Kinatic Solution</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  
   <!-- / Testimonial -->
 
   <!-- Latest Blog -->
@@ -467,62 +417,39 @@
             <h2>LATEST BLOG</h2>
             <div class="row">
               <!-- single latest blog -->
+              @foreach($post as $row)
               <div class="col-md-4 col-sm-4">
                 <div class="aa-latest-blog-single">
                   <figure class="aa-blog-img">                    
-                    <a href="#"><img src="{{asset('public/frontend/img/promo-banner-1.jpg')}}" alt="img"></a>  
+                    <a href="{{  url('/single/blog/'.$row->id) }}"><img src="{{ URL::to($row->post_image) }}" alt="{{$row->post_title_bn}}"></a>  
                       <figcaption class="aa-blog-img-caption">
-                      <span href="#"><i class="fa fa-eye"></i>5K</span>
+                      <!-- <span href="#"><i class="fa fa-eye"></i>5K</span>
                       <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                      <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                      <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
+                      <a href="#"><i class="fa fa-comment-o"></i>20</a> -->
+
+                      <span>Posted By <a href="#">Admin</a></span>
+                      <span ><i class="fa fa-clock-o"></i>{{ date( 'd-M-Y', strtotime( $row->created_at ) )}}</span>
                     </figcaption>                          
                   </figure>
                   <div class="aa-blog-info">
-                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p> 
-                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
+                    <h3 class="aa-blog-title">
+                      @if(session()->get('lang')=='bangla')
+                          <a href="{{  url('/single/blog/'.$row->id) }}">{{ str_limit($row->post_title_bn, 40, '') }}</a>
+                      @else
+                          <a href="{{  url('/single/blog/'.$row->id) }}">{{ str_limit($row->post_title_en, 40, '') }}</a>
+                      @endif
+                    </h3>
+                    @if(session()->get('lang')=='bangla')
+                      <p>{!! str_limit($row->details_bn, 130, '') !!} </p>
+                    @else
+                        <p>{!! str_limit($row->details_en, 130, '') !!}</p>
+                    @endif
+                    <a href="{{  url('/single/blog/'.$row->id) }}" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
                   </div>
                 </div>
               </div>
               <!-- single latest blog -->
-              <div class="col-md-4 col-sm-4">
-                <div class="aa-latest-blog-single">
-                  <figure class="aa-blog-img">                    
-                    <a href="#"><img src="{{asset('public/frontend/img/promo-banner-1.jpg')}}" alt="img"></a>   
-                      <figcaption class="aa-blog-img-caption">
-                      <span href="#"><i class="fa fa-eye"></i>5K</span>
-                      <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                      <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                      <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                    </figcaption>                          
-                  </figure>
-                  <div class="aa-blog-info">
-                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p> 
-                     <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>         
-                  </div>
-                </div>
-              </div>
-              <!-- single latest blog -->
-              <div class="col-md-4 col-sm-4">
-                <div class="aa-latest-blog-single">
-                  <figure class="aa-blog-img">                    
-                    <a href="#"><img src="{{asset('public/frontend/img/promo-banner-1.jpg')}}" alt="img"></a>    
-                      <figcaption class="aa-blog-img-caption">
-                      <span href="#"><i class="fa fa-eye"></i>5K</span>
-                      <a href="#"><i class="fa fa-thumbs-o-up"></i>426</a>
-                      <a href="#"><i class="fa fa-comment-o"></i>20</a>
-                      <span href="#"><i class="fa fa-clock-o"></i>June 26, 2016</span>
-                    </figcaption>                          
-                  </figure>
-                  <div class="aa-blog-info">
-                    <h3 class="aa-blog-title"><a href="#">Lorem ipsum dolor sit amet</a></h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, ad? Autem quos natus nisi aperiam, beatae, fugiat odit vel impedit dicta enim repellendus animi. Expedita quas reprehenderit incidunt, voluptates corporis.</p> 
-                    <a href="#" class="aa-read-mor-btn">Read more <span class="fa fa-long-arrow-right"></span></a>
-                  </div>
-                </div>
-              </div>
+              @endforeach
             </div>
           </div>
         </div>    
@@ -538,17 +465,10 @@
         <div class="col-md-12">
           <div class="aa-client-brand-area">
             <ul class="aa-client-brand-slider">
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
-              <li><a href="#"><img src="{{asset('public/frontend/img/client-brand-java.png')}}" alt="java img"></a></li>
+            @foreach($brands as $row)
+
+              <li><a href="#"><img width="135px" height="33px"  src="{{URL::to($row->brand_logo)}}" alt="{{URL::to($row->brand_name)}}"></a></li>
+            @endforeach 
             </ul>
           </div>
         </div>

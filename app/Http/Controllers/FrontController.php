@@ -42,8 +42,16 @@ class FrontController extends Controller
                                  ->where('buyone_getone',1)
                                  ->where('status',1)
                                  ->latest()
-                                 ->first();                                                                                               
-        return view('pages.index',compact('slider','featured_product','popular_product','trend_product','latest_product','mid_slider_product','buygetone_product'));
+                                 ->first(); 
+        $post = DB::table('posts')
+                                 ->where('publication_status',1)
+                                 ->orderBy('posts.id','desc')
+                                 ->limit(3)
+                                 ->get();  
+        $brands = DB::table('brands')
+                                 ->orderBy('id','desc')
+                                 ->get();                                                                                                                                              
+        return view('pages.index',compact('slider','featured_product','popular_product','trend_product','latest_product','mid_slider_product','buygetone_product','post','brands'));
     }
     public function StoreNewslater(Request $request)
     {
@@ -74,6 +82,37 @@ class FrontController extends Controller
                 );
             return Redirect()->back()->with($notification);
          }
+    }
 
+    public function our_story()
+    {
+        $title = 'Our Story';
+        $setting = DB::table('sitesetting')->first();
+        $data = $setting->our_story;
+        return view('pages.footer_page',compact('data','title'));
+    }
+
+    public function privacy_policy()
+    {
+        $title = 'Privacy Policy';
+        $setting = DB::table('sitesetting')->first();
+        $data = $setting->privacy_policy;
+        return view('pages.footer_page',compact('data','title'));
+    }
+
+    public function terms_of_use()
+    {
+        $title = 'Terms Of Use';
+        $setting = DB::table('sitesetting')->first();
+        $data = $setting->terms_of_use;
+        return view('pages.footer_page',compact('data','title'));
+    }
+
+    public function faq()
+    {
+        $title = 'FAQ';
+        $setting = DB::table('sitesetting')->first();
+        $data = $setting->faq;
+        return view('pages.footer_page',compact('data','title'));
     }
 }

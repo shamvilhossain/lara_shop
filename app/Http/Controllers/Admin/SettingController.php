@@ -31,7 +31,11 @@ class SettingController extends Controller
     	 $data['facebook']=$request->facebook;
     	 $data['youtube']=$request->youtube;
     	 $data['instagram']=$request->instagram;
-    	 $data['twitter']=$request->twitter; 
+         $data['twitter']=$request->twitter; 
+         $data['our_story']=$request->our_story; 
+         $data['privacy_policy']=$request->privacy_policy; 
+         $data['terms_of_use']=$request->terms_of_use; 
+    	 $data['faq']=$request->faq; 
     	 DB::table('sitesetting')->where('id',$id)->update($data);
     	 $notification=array(
                  'messege'=>'Setting Update',

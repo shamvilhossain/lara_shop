@@ -36,6 +36,7 @@ class PostController extends Controller
     	$data['post_title_bn']=$request->post_title_bn;
         $data['details_en']=$request->details_en;
         $data['details_bn']=$request->details_bn;
+        $data['publication_status']=$request->publication_status;
         $data['created_at']=date("Y-m-d H:i:s");
 
         $post_image=$request->post_image;
@@ -90,6 +91,7 @@ class PostController extends Controller
     	$data['post_title_bn']=$request->post_title_bn;
         $data['details_en']=$request->details_en;
         $data['details_bn']=$request->details_bn;
+        $data['publication_status']=$request->publication_status;
         $data['updated_at']=date("Y-m-d H:i:s");
 
         $post_image=$request->post_image;

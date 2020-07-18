@@ -116,6 +116,7 @@ class ComposerStaticInite3bae772c4b322f01cd1c02f89ef47e9
         'N' => 
         array (
             'NunoMaduro\\Collision\\' => 21,
+            'Nicolaslopezj\\Searchable\\' => 25,
         ),
         'M' => 
         array (
@@ -367,6 +368,10 @@ class ComposerStaticInite3bae772c4b322f01cd1c02f89ef47e9
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
         ),
+        'Nicolaslopezj\\Searchable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nicolaslopezj/searchable/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -585,6 +590,7 @@ class ComposerStaticInite3bae772c4b322f01cd1c02f89ef47e9
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
         'App\\Http\\Controllers\\SocialController' => __DIR__ . '/../..' . '/app/Http/Controllers/SocialController.php',
+        'App\\Http\\Controllers\\SslCommerzPaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/SslCommerzPaymentController.php',
         'App\\Http\\Controllers\\WishlistController' => __DIR__ . '/../..' . '/app/Http/Controllers/WishlistController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -594,11 +600,15 @@ class ComposerStaticInite3bae772c4b322f01cd1c02f89ef47e9
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Library\\SslCommerz\\AbstractSslCommerz' => __DIR__ . '/../..' . '/app/Library/sslcommerz/AbstractSslCommerz.php',
+        'App\\Library\\SslCommerz\\SslCommerzInterface' => __DIR__ . '/../..' . '/app/Library/sslcommerz/SslCommerzInterface.php',
+        'App\\Library\\SslCommerz\\SslCommerzNotification' => __DIR__ . '/../..' . '/app/Library/sslcommerz/SslCommerzNotification.php',
         'App\\Mail\\InvoiceMail' => __DIR__ . '/../..' . '/app/Mail/InvoiceMail.php',
         'App\\Model\\Admin\\Brand' => __DIR__ . '/../..' . '/app/Model/Admin/Brand.php',
         'App\\Model\\Admin\\Category' => __DIR__ . '/../..' . '/app/Model/Admin/Category.php',
         'App\\Model\\Admin\\Subcategory' => __DIR__ . '/../..' . '/app/Model/Admin/Subcategory.php',
         'App\\Notifications\\AdminPasswordResetNotification' => __DIR__ . '/../..' . '/app/Notifications/AdminPasswordResetNotification.php',
+        'App\\Product' => __DIR__ . '/../..' . '/app/Product.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -3021,6 +3031,7 @@ class ComposerStaticInite3bae772c4b322f01cd1c02f89ef47e9
         'Monolog\\SignalHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/SignalHandler.php',
         'Monolog\\Test\\TestCase' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Test/TestCase.php',
         'Monolog\\Utils' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Utils.php',
+        'Nicolaslopezj\\Searchable\\SearchableTrait' => __DIR__ . '/..' . '/nicolaslopezj/searchable/src/SearchableTrait.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
         'NunoMaduro\\Collision\\Adapters\\Laravel\\Inspector' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Laravel/Inspector.php',

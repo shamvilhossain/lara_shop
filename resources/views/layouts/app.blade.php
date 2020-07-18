@@ -46,7 +46,27 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  
+   <style type="text/css">
+
+    .social-login a {
+        text-decoration: none;
+        color: #fff;
+        margin: 2px;
+        height: 30px;
+        display: inline-block;
+        width: 97%;
+        padding: 8px 0;
+        text-align: center;
+        cursor: pointer;
+    }
+    .btn-facebook{
+        background-color: var(--color-facebook);
+    } 
+    
+    .btn-google{
+        background-color: var(--color-google);
+    } 
+   </style> 
 
   </head>
   <body>
@@ -209,8 +229,8 @@
               <!-- / cart box -->
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="">
-                  <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                <form  action="{{ route('full-text-search.action') }}" method="GET">
+                  <input type="text" name="full_text_search" id="full_text_search" value="{{ request()->input('full_text_search') }}" placeholder="Search Here ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
@@ -236,19 +256,18 @@
         <div class="col-md-12">
           <div class="aa-footer-top-area">
             <div class="row">
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-4 col-sm-6">
                 <div class="aa-footer-widget">
                   <h3>Main Menu</h3>
                   <ul class="aa-footer-nav">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Our Products</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Career</a></li>
                     <li><a href="#">Contact Us</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <!-- <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Knowledge Base</h3>
@@ -261,22 +280,21 @@
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
+              </div> -->
+              <div class="col-md-4 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Useful Links</h3>
                     <ul class="aa-footer-nav">
-                      <li><a href="#">Site Map</a></li>
-                      <li><a href="#">Search</a></li>
-                      <li><a href="#">Advanced Search</a></li>
-                      <li><a href="#">Suppliers</a></li>
-                      <li><a href="#">FAQ</a></li>
+                      <li><a href="{{route('footer.our_story')}}">Our Story</a></li>
+                      <li><a href="{{route('footer.privacy_policy')}}">Privacy Policy</a></li>
+                      <li><a href="{{route('footer.terms_of_use')}}">Terms of Use</a></li>
+                      <li><a href="{{route('footer.faq')}}">FAQ</a></li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              <div class="col-md-4 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Contact Us</h3>
@@ -311,16 +329,22 @@
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
-            <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
+          <form class="aa-login-form" action="{{ route('login') }}" method="post">
+            @csrf
+            <label for="">Email address<span>*</span></label>
+            <input type="email" name="email" placeholder="Email" required="required">
             <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" required="required" autocomplete="on">
             <button class="aa-browse-btn" type="submit">Login</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+            <!-- <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label> -->
             <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            
             <div class="aa-register-now">
               Don't have an account?<a href="{{ route('register') }}">Register now!</a>
+            </div>
+            <div class="social-login text-center">OR<br/>
+                    <a class=" btn-facebook  text-uppercase" href="{{ url('/auth/redirect/facebook') }}" style="border-radius: 25px;"><i class="fa fa-facebook-f mr-2 ml-2">&nbsp;&nbsp;&nbsp;&nbsp; Facebook</i> </a>
+                    <a class=" btn-google  text-uppercase" href="{{ url('/auth/redirect/google') }}" style="border-radius: 25px;"><i class="fa fa-google mr-2 ml-2"> &nbsp;&nbsp;&nbsp; Google</i></a>
             </div>
           </form>
         </div>                        
@@ -364,13 +388,20 @@
   <script type="text/javascript" src="{{asset('public/frontend/js/slick.js')}}"></script>
   <!-- Price picker slider -->
   <script type="text/javascript" src="{{asset('public/frontend/js/nouislider.js')}}"></script>
-
+<!--  july 17 - for form validation -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>  
   <!-- Custom js -->
   <script src="{{asset('public/frontend/js/custom.js')}}"></script> 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
-
+<script>
+    @if(count($errors) > 0)
+        @foreach($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+</script>
   <script>
         @if(Session::has('messege'))
           var type="{{Session::get('alert-type','info')}}"
@@ -463,6 +494,81 @@
          });
 
     </script>
+
+    <script>
+$(document).ready(function(){
+
+ if($("#contact_form").length > 0)
+  {
+    $('#contact_form').validate({
+      rules:{
+        name : {
+          required : true,
+          maxlength : 50
+        },
+        email : {
+          required : true,
+          maxlength : 50, 
+          email : true
+        },
+        phone : {
+          required : true,
+          digits : true,
+          minlength : 11,
+          maxlength : 13
+        },
+        password: {
+            required: true,
+            minlength: 5
+        },
+        password: {
+            required: true,
+            minlength: 5
+        },
+        password_confirmation: {
+            required: true,
+            minlength: 5
+        }
+      },
+      messages : {
+        name : {
+          required : 'Enter Name',
+          maxlength : 'Name should not be more than 50 character'
+        },
+        email : {
+          required : 'Enter Email Detail',
+          email : 'Enter Valid Email Detail',
+          maxlength : 'Email should not be more than 50 character'
+        },
+        phone : {
+          required : 'Enter Phone Number',
+          digits    : "Please enter valid phone number",
+          minlength : 'Phone Number must be minimum 11 character long',
+          maxlength : 'Phone Number must be maximum 13 character long'
+        },
+        password : {
+          required : 'Enter Password',
+          minlength : 'Password must be minimum 5 character long'
+        },
+        password_confirmation : {
+          required : 'Enter Password',
+          minlength : 'Password must be minimum 5 character long'
+        }
+
+      },
+      errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $(placement).append(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+    });
+  }
+
+});
+</script>
 
   </body>
 </html>

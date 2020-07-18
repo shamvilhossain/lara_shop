@@ -139,6 +139,14 @@ Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.ne
 Route::get('products/{id}','ProductController@SubCategoryProduct');
 Route::post('order/tracking', 'FrontController@OrderTracking')->name('order.tracking');
 Route::get('request/cancel/{id}', 'PaymentController@RequestCancel');
+//Route::post('full-text-search/action', 'ProductController@search_action')->name('full-text-search.action');
+Route::get('full-text-search/action', 'ProductController@search_action')->name('full-text-search.action');
+Route::get('single/blog/{id}','BlogController@SingleBlog');
+
+Route::get('our_story','FrontController@our_story')->name('footer.our_story');
+Route::get('privacy_policy','FrontController@privacy_policy')->name('footer.privacy_policy');
+Route::get('terms_of_use','FrontController@terms_of_use')->name('footer.terms_of_use');
+Route::get('faq','FrontController@faq')->name('footer.faq');
 
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');

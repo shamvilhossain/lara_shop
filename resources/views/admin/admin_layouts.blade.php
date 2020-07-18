@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{{asset('public/backend/css/starlight.css')}}">
     <link rel="stylesheet" href="{{asset('public/backend/lib/datatables/jquery.dataTables.css')}}" >
     <link rel="stylesheet" href="{{ asset('public/backend/lib/select2/css/select2.min.css') }}" >
+    <link href="{{ asset('public/backend/lib/summernote/summernote-bs4.css') }}" rel="stylesheet">
   </head>
 
   <body>
@@ -135,6 +136,7 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
           <li class="nav-item"><a href="{{ route('admin.newslater') }}" class="nav-link">Newslater</a></li>
+          <li class="nav-item"><a href="{{ route('admin.main_sliders') }}" class="nav-link">Sliders</a></li>
           <li class="nav-item"><a href="{{ route('admin.seo') }}" class="nav-link">Seo Settings</a></li>
         </ul>
         @else
@@ -486,27 +488,14 @@
         var editor = new MediumEditor('.editable');
 
         // Summernote editor
-        $('#summernote').summernote({
+        $('.summernote').summernote({
           height: 150,
           tooltip: false
         })
       });
     </script>
 
-    <script>
-      $(function(){
-        'use strict';
-
-        // Inline editor
-        var editor = new MediumEditor('.editable');
-
-        // Summernote editor
-        $('#summernote1').summernote({
-          height: 150,
-          tooltip: false
-        })
-      });
-    </script>
+   
     <script>
       $(function(){
         'use strict';

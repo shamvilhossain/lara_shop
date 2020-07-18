@@ -2,8 +2,8 @@
 @section('admin_content')
     <div class="sl-mainpanel">
       <nav class="breadcrumb sl-breadcrumb">
-        <a class="breadcrumb-item" href="#">Starlight</a>
-        <span class="breadcrumb-item active">Product Section</span>
+        <a class="breadcrumb-item" href="#">Lara Shop</a>
+        <span class="breadcrumb-item active">Site Setting</span>
       </nav>
       <div class="sl-pagebody">
       	   <div class="card pd-20 pd-sm-40">
@@ -69,6 +69,42 @@
                   <input class="form-control" type="text" name="twitter"  required="" value="{{ $setting->twitter }}">
                 </div>
               </div><!-- col-4 -->
+
+               <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="form-control-label">Our Story<span class="tx-danger">*</span></label>
+                   <textarea class="form-control summernote"  name="our_story">
+                    {{ $setting->our_story}}
+                   </textarea>
+                </div>  
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="form-control-label">Privacy Policy<span class="tx-danger">*</span></label>
+                   <textarea class="form-control summernote"  name="privacy_policy">
+                    {{ $setting->privacy_policy}}
+                   </textarea>
+                </div>  
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="form-control-label">Terms of Use<span class="tx-danger">*</span></label>
+                   <textarea class="form-control summernote"  name="terms_of_use">
+                    {{ $setting->terms_of_use }}
+                   </textarea>
+                </div>  
+              </div>
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="form-control-label">FAQ<span class="tx-danger">*</span></label>
+                   <textarea class="form-control summernote"  name="faq">
+                    {{ $setting->faq }}
+                   </textarea>
+                </div>  
+              </div>
 
             </div><!-- row -->
             <br>

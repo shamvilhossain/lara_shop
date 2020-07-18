@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('post_image');
             $table->text('details_en');
             $table->text('details_bn');
+            $table->tinyInteger('publication_status');
             $table->timestamps();
         });
     }

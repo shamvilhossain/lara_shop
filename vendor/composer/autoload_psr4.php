@@ -50,6 +50,7 @@ return array(
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Opis\\Closure\\' => array($vendorDir . '/opis/closure/src'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
+    'Nicolaslopezj\\Searchable\\' => array($vendorDir . '/nicolaslopezj/searchable/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Mollie\\Laravel\\' => array($vendorDir . '/mollie/laravel-mollie/src'),
     'Mollie\\Api\\' => array($vendorDir . '/mollie/mollie-api-php/src'),

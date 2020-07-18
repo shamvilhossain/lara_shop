@@ -107,7 +107,7 @@
               <div class="col-lg-12">
               	<div class="form-group">
                   <label class="form-control-label">Product Details<span class="tx-danger">*</span></label>
-                   <textarea class="form-control" id="summernote" name="product_details" >
+                   <textarea class="form-control summernote" name="product_details" >
                    	 {{ $product->product_details}}
                    </textarea>
                 </div>	

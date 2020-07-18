@@ -56,7 +56,8 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            //'strict' => true, 
+            'strict' => false, // for full text search
             'engine' => null,
              'dump' => [
                   'dump_binary_path' => 'I:\xampp\mysql\bin',

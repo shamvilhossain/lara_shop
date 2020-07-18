@@ -33,28 +33,28 @@
                     <div class="col-md-4 col-sm-4">
                       <article class="aa-blog-content-single">                        
                         <h4>
-                        	@if(session()->get('lang')=='bangla')
-			                    <a href="#">{{$row->post_title_bn}}</a>
-			                @else
-			                    <a href="#">{{$row->post_title_en}}</a>
-			                @endif
+                        @if(session()->get('lang')=='bangla')
+                          <a href="{{  url('/single/blog/'.$row->id) }}">{{ str_limit($row->post_title_bn, 40, '') }}</a>
+                      @else
+                          <a href="{{  url('/single/blog/'.$row->id) }}">{{ str_limit($row->post_title_en, 40, '') }}</a>
+                      @endif
                         	
                         </h4>
                         <figure class="aa-blog-img">
-                          <a href="#"><img src="{{ URL::to($row->post_image) }}" alt="{{$row->post_title_bn}}"></a>
+                          <a href="{{  url('/single/blog/'.$row->id) }}"><img src="{{ URL::to($row->post_image) }}" alt="{{$row->post_title_bn}}"></a>
                         </figure>
                         
                         @if(session()->get('lang')=='bangla')
-			                <p>{!! $row->details_bn !!}</p>
+			                <p>{!! str_limit($row->details_bn, 100, '') !!} </p>
 		                @else
-		                    <p>{!! $row->details_en !!}</p>
+		                    <p>{!! str_limit($row->details_en, 100, '') !!}</p>
 		                @endif
                         <div class="aa-article-bottom">
                           <div class="aa-post-author">
-                            Posted By <a href="#">Jackson</a>
+                            Posted By <a href="#">Admin</a>
                           </div>
                           <div class="aa-post-date">
-                            March 26th 2016
+                            {{ date( 'd-M-Y', strtotime( $row->created_at ) )}}
                           </div>
                         </div>
                       </article>

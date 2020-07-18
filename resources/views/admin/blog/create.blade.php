@@ -73,10 +73,24 @@
       				  <img src="#" id="one" >
       				</label>
               </div>
+
+              <div class="col-lg-4">
+                <div class="form-group mg-b-10-force ">
+                  <label class="form-control-label">Publication Status: <span class="tx-danger">*</span></label>
+                  <select class="form-control select2" data-placeholder="Publication Status" name="publication_status">
+                    <option>Select Status</option>
+                    <option value="0">Unpublshed</option>
+                    <option value="1">Published</option>
+                  </select>
+                </div>
+              </div>
              
             </div><!-- row -->
+
             <br><hr>
-          
+            
+
+              
 
             <br><br><hr>
             <div class="form-layout-footer">

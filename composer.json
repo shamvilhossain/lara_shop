@@ -19,6 +19,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^6.1",
         "mollie/laravel-mollie": "^2.0",
+        "nicolaslopezj/searchable": "^1.13",
         "spatie/laravel-backup": "^6.11",
         "stripe/stripe-php": "^7.39"
     },

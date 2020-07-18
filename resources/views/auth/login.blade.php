@@ -170,7 +170,7 @@
                        <div class="col-md-6 modal-style-1" style=" border-right: 2px dashed #ccc;">
                          <div class="aa-myaccount-login">
                          <h4>Login</h4>
-                         <form action="{{ route('login') }}" id="contact_form" method="post">
+                         <form action="{{ route('login') }}" id="login_form" method="post">
                             @csrf
                                 <div class="form-group">
                                     <div class="input-group">
@@ -220,33 +220,37 @@
                                <div class="form-group">
                                    <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                       <input type="text" class="form-control" name="name" placeholder="Enter your name" required="required">
+                                       <input type="text" id="name" data-error="#errNm1" class="form-control" name="name" placeholder="Enter your name" required="required">
                                    </div>
+                                   <span style="color:red;" id="errNm1" ></span>
                                </div>
                                <div class="form-group">
                                    <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                       <input type="email" class="form-control @error('email') is-invalid @enderror"  name="email"  value="{{ old('email') }}" placeholder="Enter email address" required="required">
+                                       <input type="email" id="email" data-error="#errNm2" class="form-control @error('email') is-invalid @enderror"  name="email"  value="" placeholder="Enter email address" required="required">
                                    </div>
-                                   
+                                   <span style="color:red;" id="errNm2" ></span>
                                </div>
                                <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone Number" required="required">
+                                        <input type="text" id="phone" data-error="#errNm3" class="form-control @error('phone') is-invalid @enderror" name="phone" value="" placeholder="Enter Phone Number" required="required">
                                     </div>
+                                    <span style="color:red;" id="errNm3" ></span>
                                 </div>
                                <div class="form-group">
                                    <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                       <input type="password" class="form-control" name="password" placeholder="Enter password" required="required" autocomplete="on">
+                                       <input id="password" type="password" data-error="#errNm4" class="form-control" name="password" placeholder="Enter password" required="required" autocomplete="on">
                                    </div>
+                                   <span style="color:red;" id="errNm4" ></span>
                                </div>
                                <div class="form-group">
                                    <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-eye-slash"></i></span>
-                                       <input type="password" class="form-control" name="password_confirmation" placeholder="Retype password" required="required" autocomplete="on">
+                                       <input id="password_confirmation" data-error="#errNm5" data-rule-equalTo="#password" type="password" class="form-control" name="password_confirmation" placeholder="Retype password" required="required" autocomplete="on">
                                    </div>
+                                   <span style="color:red;" id="errNm5" ></span>
                                </div>
                                <div class="form-group text-center">
                                    <button type="submit" class="btn btn-primary btn-signin">Register</button>
@@ -263,4 +267,6 @@
               
             </div>
           </section>
+
+
 @endsection

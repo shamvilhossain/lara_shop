@@ -24,6 +24,10 @@ class CreateSitesettingTable extends Migration
             $table->string('youtube')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
+            $table->text('our_story')->nullable();
+            $table->text('privacy_policy')->nullable();
+            $table->text('terms_of_use')->nullable();
+            $table->text('faq')->nullable();
             $table->timestamps();
         });
     }

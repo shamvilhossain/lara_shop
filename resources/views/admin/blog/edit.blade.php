@@ -81,6 +81,17 @@
                 <input type="hidden" name="old_image" value="{{ $post->post_image }}">
               </label>
               </div>
+
+              <div class="col-lg-4">
+                <div class="form-group mg-b-10-force ">
+                  <label class="form-control-label">Publication Status: <span class="tx-danger">*</span></label>
+                  <select class="form-control select2" data-placeholder="Publication Status" name="publication_status">
+                    
+                    <option value="0" <?php if ($post->publication_status == 0) {echo "selected"; } ?> >Unpublshed</option>
+                    <option value="1" <?php if ($post->publication_status == 1) {echo "selected"; } ?>>Published</option>
+                  </select>
+                </div>
+              </div>
              
             </div><!-- row -->
             <br><hr>
