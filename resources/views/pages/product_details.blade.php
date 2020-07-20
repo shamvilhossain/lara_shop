@@ -42,9 +42,12 @@
                         <span class="aa-product-view-price">${{ $product_info->discount_price }}</span>&nbsp;&nbsp;<span class="aa-product-view-price" style="color:red"><del>${{ $product_info->selling_price }}</del></span>
                       @endif
                       <p class="aa-product-avilability">Brand: <span>{{$product_info->brand_name}}</span></p>
-                      <p class="aa-product-avilability">Avilability: <span>
-                        <?php if($product_info->status > 0){ echo 'In Stock';}else{ echo 'Out of Stock';}?>
-                      </span></p>
+                      <p class="aa-product-avilability">Avilability: 
+                        <?php if($product_info->product_quantity >= 5){ echo '<span style="color:green">In Stock</span>';}
+                        elseif ($product_info->product_quantity < 5 && $product_info->product_quantity > 0 ) { echo '<span style="color:#b93958">Limited</span>'; }
+                        else{ echo '<span style="color:red">Out of Stock</span>';}
+                        ?>
+                      </p>
                     </div>
                     <p>{{$product_info->video_link }}</p>
 

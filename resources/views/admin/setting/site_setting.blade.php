@@ -9,7 +9,7 @@
       	   <div class="card pd-20 pd-sm-40">
           <h6 class="card-body-title">Website Setting  </h6>
           <p class="mg-b-20 mg-sm-b-30"> Website Update</p>
-          <form action="{{ route('update.sitesetting') }}" method="post" >
+          <form action="{{ route('update.sitesetting') }}" method="post" enctype="multipart/form-data">
           	@csrf
           <input type="hidden" name="id" value="{{ $setting->id }}">
           <div class="form-layout">
@@ -45,6 +45,21 @@
                   <input class="form-control" type="text" name="company_address"  required="" value="{{ $setting->company_address }}">
                 </div>
               </div><!-- col-4 -->
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="form-control-label">Logo <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="file" name="logo"  required="" value="{{ $setting->logo }}">
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-6">
+                <label>Old Image<span class="tx-danger">*</span></label>
+                <label class="custom-file">
+                <img src="{{ URL::to($setting->logo) }}" style="height: 80px; width: 140px;" >
+                <input type="hidden" name="old_image" value="{{ $setting->logo }}">
+              </label>
+              </div>
+
                 <div class="col-lg-4">
                 <div class="form-group">
                   <label class="form-control-label">Facebook Link<span class="tx-danger">*</span></label>
@@ -69,6 +84,20 @@
                   <input class="form-control" type="text" name="twitter"  required="" value="{{ $setting->twitter }}">
                 </div>
               </div><!-- col-4 -->
+
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label"> Vat: <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="text" name="vat"  required="" value="{{ $setting->vat }}">
+                </div>
+              </div><!-- col-4 -->
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-control-label">Shipping Charge: <span class="tx-danger">*</span></label>
+                  <input class="form-control" type="text" name="shipping_charge"  required="" value="{{ $setting->shipping_charge }}">
+                </div>
+              </div><!-- col-4 -->
+              
 
                <div class="col-lg-12">
                 <div class="form-group">

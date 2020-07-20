@@ -2,7 +2,7 @@
 @section('content')
 @include('layouts.menubar')
 <?php 
-  $setting=DB::table('settings')->first();
+  $setting=DB::table('sitesetting')->first();
   $shipping_charge = $setting->shipping_charge;
   $cart=Cart::content();
   $total_amount=0;

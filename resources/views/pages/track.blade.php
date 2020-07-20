@@ -116,6 +116,60 @@
 .bg-faded, .bg-secondary {
     background-color: #f5f5f5 !important;
 }
+
+.row {
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    /*padding: 2vh 0 2vh 0;*/
+    justify-content: space-between;
+    flex-wrap: unset;
+    margin: 0
+}
+
+.modal-body {
+    padding: 2vh
+}
+
+.modal-footer {
+    border-top: none;
+    justify-content: center;
+    padding-top: 0;
+    text-align: center;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 3vh;
+    font-weight: bold
+}
+
+
+ul {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around
+}
+
+ul li {
+    font-size: 2vh;
+    /*font-weight: bold;*/
+    line-height: 4vh
+}
+
+.left {
+    float: left;
+    font-weight: normal;
+    color: rgb(126, 123, 123)
+}
+
+.right {
+    float: right;
+    text-align: right
+}
+
+.col {
+    padding-left: 0
+}
                                     
 </style>
 <?php 
@@ -156,7 +210,7 @@ if($track_sts==0){
     <div style="margin-bottom: .25rem !important;" class="container padding-bottom-3x mb-1">
         <div class="card mb-3">
           <div style="padding: 1.5rem !important;background-color: #343a40;color: #ff6666;" class="text-center text-lg rounded-top">
-          <span class="text-uppercase">Tracking Order No - </span>
+          <span class="text-uppercase">Tracking Code - </span>
           <span class="text-medium">{{$track->status_code}}</span>
         </div>
           <div style="display:flex;padding:1rem;" class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
@@ -165,7 +219,7 @@ if($track_sts==0){
               <span class="text-medium">Status:</span> {{$sts_txt}}
             </div>
             <div style="width:50%">
-                <a style="color: #007bff; border-color: #007bff;float:right" class=" btn  btn-rounded btn-sm" href="orderDetails" data-toggle="modal" data-target="#orderDetails">View Order Details</a>
+                <a id="{{$track->id}}" style="color: #007bff; border-color: #007bff;float:right" class=" btn  btn-rounded btn-sm" href="#" data-toggle="modal" data-target="#orderDetails" onclick="orderview(this.id)">View Order Details</a>
             </div>
           </div>
           <div class="card-body">
@@ -216,6 +270,66 @@ if($track_sts==0){
             </div>
           </div>
         </div>
+
+        <div class="modal fade" id="orderDetails">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color: #ff6666;">Order Summery</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div> <!-- Modal body -->
+                <div class="modal-body">
+                    
+                        <h5>Item Details</h5>
+                        <div id="order_items">
+                          
+                        </div>
+                        <h5>Order Details</h5>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <ul type="none">
+                                    <li class="left">Order number:</li>
+                                    <li class="left">Date:</li>
+                                    <li class="left">Subtotal:</li>
+                                    <li class="left">Shipping:</li>
+                                    <li class="left">Total Price:</li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+                                <ul class="right" type="none">
+                                    <li class="right" id="stripe_order_id"></li>
+                                    <li class="right" id="order_date"></li>
+                                    <li class="right" id="order_subtotal"></li>
+                                    <li class="right" id="order_shipping"></li>
+                                    <li class="right" id="order_total"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h5>Shipment</h5>
+                        <div class="row" style="border-bottom: none">
+                            <div class="col-xs-6">
+                                <ul type="none">
+                                    <li class="left">Address</li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+                                <ul type="none">
+                                    <li class="right" id="ship_address">25-03-2020</li>
+                                </ul>
+                            </div>
+                        </div>
+                    
+                </div> <!-- Modal footer -->
+                <div class="modal-footer"> 
+                  <form action="{{route('order.tracking')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="code" id="track_code" value="">
+                    <button type="submit" class="aa-browse-btn">Track Order</button> 
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
          <br/>
       </div>
 </section>

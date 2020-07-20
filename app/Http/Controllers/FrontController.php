@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
+use Response;
 class FrontController extends Controller
 {
     public function index()
@@ -84,6 +84,22 @@ class FrontController extends Controller
          }
     }
 
+    public function ViewOrder($order_id)
+    {
+        $order_info=DB::table('orders')->where('id',$order_id)->first();
+        $shipping=DB::table('shipping')->where('order_id',$order_id)->first();
+        $order_details=DB::table('order_details')->join('products','order_details.product_id','products.id')
+          ->select('products.product_code','products.image_one','order_details.*')
+          ->where('order_details.order_id',$order_id)->get();
+
+        return response::json(array(
+                'order' => $order_info,
+                'shipping' => $shipping,
+                'order_details' => $order_details
+         ));                        
+               
+    }
+
     public function our_story()
     {
         $title = 'Our Story';
@@ -114,5 +130,11 @@ class FrontController extends Controller
         $setting = DB::table('sitesetting')->first();
         $data = $setting->faq;
         return view('pages.footer_page',compact('data','title'));
+    }
+
+    public function contact_us()
+    {
+        $setting = DB::table('sitesetting')->first();
+        return view('pages.contact_us',compact('setting'));
     }
 }

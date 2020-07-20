@@ -147,6 +147,7 @@ Route::get('our_story','FrontController@our_story')->name('footer.our_story');
 Route::get('privacy_policy','FrontController@privacy_policy')->name('footer.privacy_policy');
 Route::get('terms_of_use','FrontController@terms_of_use')->name('footer.terms_of_use');
 Route::get('faq','FrontController@faq')->name('footer.faq');
+Route::get('contact_us','FrontController@contact_us')->name('footer.contact_us');
 
 //wishlists
 Route::get('add/wishlist/{id}','WishlistController@AddWishlist');
@@ -163,6 +164,7 @@ Route::get('user/checkout','CartController@Checkout')->name('user.checkout');
 Route::get('user/wishlist','CartController@Wishlist')->name('user.wishlist');
 Route::post('user/apply/coupon','CartController@Coupon')->name('apply.coupon');
 Route::get('user/remove/','CartController@CouponRemove')->name('coupon.remove');
+Route::get('order/view/{id}','FrontController@ViewOrder');
 
 //Payment ===========
 Route::post('user/payment/process','PaymentController@Payment')->name('payment.process');

@@ -19,7 +19,7 @@
           <div class="navbar-collapse collapse">
             <!-- Left nav -->
             <ul class="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
+              <li><a href="{{url('/')}}">Home</a></li>
               @foreach( $category as $cat)
                     @php  
                         $subcategory=DB::table('subcategories')->where('category_id',$cat->id)->get();

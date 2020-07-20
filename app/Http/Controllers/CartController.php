@@ -13,6 +13,13 @@ class CartController extends Controller
     public function AddCart($id)
     {
     	$product=DB::table('products')->where('id',$id)->first();
+        if($product->product_quantity < 1){
+            $notification=array(
+                'messege'=>'Out of stock!',
+                'alert-type'=>'error'
+                 );
+            return Redirect()->back()->with($notification);
+        }
     	$data=array();
     	if ($product->discount_price == NULL) {
 	        $data['id']=$product->id;
@@ -54,6 +61,13 @@ class CartController extends Controller
     {
         //print_r($resuest);exit;
         $product=DB::table('products')->where('id',$id)->first();
+        if($request->qty > $product->product_quantity){
+            $notification=array(
+                'messege'=>'Out of stock!',
+                'alert-type'=>'error'
+                 );
+            return Redirect()->back()->with($notification);
+        }
         $data=array();
         if ($product->discount_price == NULL) {
             $data['id']=$product->id;
@@ -162,6 +176,13 @@ class CartController extends Controller
     {
         $id= $request->product_id;
         $product=DB::table('products')->where('id',$id)->first();
+        if($request->qty > $product->product_quantity){
+            $notification=array(
+                'messege'=>'Out of stock!',
+                'alert-type'=>'error'
+                 );
+            return Redirect()->back()->with($notification);
+        }
         $data=array();
         if ($product->discount_price == NULL) {
             $data['id']=$product->id;

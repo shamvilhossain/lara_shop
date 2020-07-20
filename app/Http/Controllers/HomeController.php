@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use DB;
+use Response;
 class HomeController extends Controller
 {
     /**
@@ -68,6 +69,7 @@ class HomeController extends Controller
 
     }
 
+
     public function Logout()
     {
         // $logout= Auth::logout();
@@ -78,7 +80,6 @@ class HomeController extends Controller
                  );
             return Redirect()->route('login')->with($notification);
             //return Redirect()->to('/')->with($notification);
-       
 
     }
 }

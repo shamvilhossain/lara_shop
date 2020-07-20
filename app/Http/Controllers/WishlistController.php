@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
+use Response;
 
 class WishlistController extends Controller
 {
@@ -30,4 +31,6 @@ class WishlistController extends Controller
     	}
     	
     }
+
+    
 }

@@ -260,10 +260,10 @@
                 <div class="aa-footer-widget">
                   <h3>Main Menu</h3>
                   <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="{{url('/')}}">Home</a></li>
+                    <li><a href="{{route('blog.post')}}">Blog</a></li>
                     <li><a href="#">Career</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{route('footer.contact_us')}}">Contact Us</a></li>
                   </ul>
                 </div>
               </div>
@@ -300,7 +300,7 @@
                     <h3>Contact Us</h3>
                     <address>
                       <p> {{$setting->company_address}}</p>
-                      <p><span class="fa fa-phone"></span>{{$setting->phone_two}}</p>
+                      <p><span class="fa fa-phone"></span>{{$setting->phone_one}}</p>
                       <p><span class="fa fa-envelope"></span>{{$setting->email}}</p>
                     </address>
                     <div class="aa-footer-social">
@@ -568,6 +568,31 @@ $(document).ready(function(){
   }
 
 });
+</script>
+
+<!--track modal -->
+<script type="text/javascript">
+    function orderview(id){
+          $.ajax({
+               url: "{{  url('/order/view/') }}/"+id,
+               type:"GET",
+               dataType:"json",
+               success:function(data) {
+                 $('#stripe_order_id').text(data.order.stripe_order_id);
+                 $('#order_date').text(data.order.date);
+                 $('#order_subtotal').text('$'.concat(data.order.subtotal));
+                 $('#order_shipping').text('$'.concat(data.order.shipping));
+                 $('#order_total').text('$'.concat(data.order.total));
+                 $('#ship_address').text(data.shipping.ship_address);
+                 $('#track_code').val(data.order.status_code);
+
+                  var d =$('#order_items').empty();
+                  $.each(data.order_details, function(key, value){
+                       $('#order_items').append('<div class="row" style="padding: 1vh 0 1vh 0;"><div class="col-xs-4"><img  width="75px;" class="img-fluid " src="'+value.image_one+'" ></div><div class="col-xs-4" style="padding-top: 2vh;"><ul type="none"><li style="color: green;">'+value.product_name+'</li><li>Code: '+value.product_code+'</li></ul></div><div class="col-xs-4" style="padding-top: 2vh;"><ul type="none"><li>Quantity: '+value.quantity+'</li><li>Unit Price: $'+value.singleprice+'</li></ul></div></div>');
+                  });
+              }
+      })
+    }
 </script>
 
   </body>

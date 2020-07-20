@@ -64,8 +64,69 @@ class PaymentController extends Controller
             // redirect customer to Mollie checkout page
             return redirect($payment->getCheckoutUrl(), 303);
 
-    	}else{
-    		echo 'Cash on delivery';
+    	}else{  // Cash on delivery'
+    		
+            $email=Auth::user()->email;
+            $uniq_id =uniqid();
+            $order=array();
+            $order['user_id']=Auth::id();
+            $order['payment_id']='cod-'.$uniq_id;
+            $order['paying_amount']=$request->total_amount;
+            $order['blnc_transection']='COD';
+            $order['stripe_order_id']=$uniq_id;
+            $order['shipping']=$request->shipping;
+            $order['vat']=$request->vat;
+            $order['total']=$request->total_amount;
+            $order['payment_type']='Cash on Delivery';
+             if (Session::has('coupon')) {
+                 $order['subtotal']=Session::get('coupon')['balance'];
+             }else{
+                  $order['subtotal']=Cart::Subtotal() ;
+            }
+            $order['status']=0;
+            $order['date']=date('d-m-y');
+            $order['month']=date('F');
+            $order['year']=date('Y');
+            $order['status_code']=mt_rand(100000,999999); 
+            $order_id=DB::table('orders')->insertGetId($order);
+
+            //Mail::to($email)->send(new invoiceMail($order));
+
+            $shipping=array();
+            $shipping['order_id']=$order_id;
+            $shipping['ship_name']=$request->name;;
+            $shipping['ship_email']=$request->email;
+            $shipping['ship_phone']=$request->phone;
+            $shipping['ship_address']=$request->address;
+            $shipping['ship_city']=$request->city;
+            $shipping['ship_zipcode']=$request->zip_code;
+            DB::table('shipping')->insert($shipping);
+
+            //insert data into orderdeatils
+            $content=Cart::content();
+            $details=array();
+            foreach ($content as $row) {
+                $details['order_id']= $order_id;
+                $details['product_id']=$row->id;
+                $details['product_name']=$row->name;
+                $details['color']=$row->options->color;
+                $details['size']=$row->options->size;
+                $details['quantity']=$row->qty;
+                $details['singleprice']=$row->price;
+                $details['totalprice']=$row->qty * $row->price;
+                DB::table('order_details')->insert($details);
+            }
+                
+            Cart::destroy();
+            if (Session::has('coupon')) {
+               Session::forget('coupon');
+            }
+
+            $notification=array(
+                      'messege'=>'Successfully Done',
+                      'alert-type'=>'success'
+            );
+            return Redirect()->to('/')->with($notification);
     	}
 
     }

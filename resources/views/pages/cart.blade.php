@@ -74,7 +74,16 @@
 
                           } ?>
                         </td>
-                        <td > <input style="text-align:center" type="number" value="{{$v_contents->qty}}" name="qty[]" id="product_qty<?=$i?>"></td>
+                        <td > 
+                               <select name="qty[]" id="product_qty<?=$i?>">
+                                <option value="1" <?= $v_contents->qty == 1 ? 'selected' : '' ?> >1</option>
+                                <option value="2" <?= $v_contents->qty == 2 ? 'selected' : '' ?>  >2</option>
+                                <option value="3" <?= $v_contents->qty == 3 ? 'selected' : '' ?>  >3</option>
+                                <option value="4" <?= $v_contents->qty == 4 ? 'selected' : '' ?>  >4</option>
+                                <option value="5" <?= $v_contents->qty == 5 ? 'selected' : '' ?>  >5</option>
+                              </select>
+                        </td>
+
                         <td>$ {{$v_contents->subtotal}}</td>
                           <input  type="hidden" value="{{$v_contents->rowId}}" name="cart_rowid[]">
                           <input  type="hidden" value="{{$v_contents->options->size_list}}" name="size_list[]">
@@ -138,15 +147,7 @@
                    </tr>
                  </tbody>
                </table>
-               <?php 
-                  $customer_id= Session::get('customer_id');
-                  if($customer_id!=null){
-
-               ?>
-               <a href="{{URL::to('/payment')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
-               <?php }else{ ?>
-               <a href="{{URL::to('/customer-registration')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
-               <?php } ?>
+              
                 <a href="{{ route('user.checkout')}}" class="aa-cart-view-btn">Proceed to Checkout</a>
              </div>
            </div>

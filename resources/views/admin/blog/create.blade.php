@@ -49,7 +49,7 @@
               <div class="col-lg-12">
               	<div class="form-group">
                   <label class="form-control-label">Product Details (English)<span class="tx-danger">*</span></label>
-                   <textarea class="form-control" id="summernote" name="details_en">
+                   <textarea class="form-control summernote" id="summernote" name="details_en">
                    	
                    </textarea>
                 </div>	
@@ -58,7 +58,7 @@
               <div class="col-lg-12">
               	<div class="form-group">
                   <label class="form-control-label">Product Details (Bangla)<span class="tx-danger">*</span></label>
-                   <textarea class="form-control" id="summernote1" name="details_bn">
+                   <textarea class="form-control summernote" id="summernote1" name="details_bn">
                    	
                    </textarea>
                 </div>	

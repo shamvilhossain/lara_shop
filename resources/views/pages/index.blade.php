@@ -173,7 +173,7 @@
                                 <h3 id="pname"></h3>
                                 <div class="aa-price-block">
                                   $<span class="aa-product-view-price" id="pprice"></span>
-                                  <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                  <p class="aa-product-avilability">Avilability: <span id="avilability"> </span></p>
                                 </div>
                                 <p class="aa-product-avilability">Product code: <span id="pcode"></span></p>
                                 <p class="aa-product-avilability">Brand: <span id="pbrand"></span></p>
@@ -571,6 +571,14 @@
                  $('#product_id').val(data.product.id);
                  $('#product_size').val('');
 
+                 var p_qty= data.product.product_quantity;
+                  if(p_qty >= 5){
+                    $('#avilability').text('In Stock');
+                  }else if(p_qty < 5 && p_qty > 0 ){
+                    $('#avilability').text('Limited');
+                  }else{
+                    $('#avilability').text('Out of Stock');
+                  }
                  var d =$('#sizediv').empty();
                  $('#size_head').hide();
                    $.each(data.size, function(key, value){
