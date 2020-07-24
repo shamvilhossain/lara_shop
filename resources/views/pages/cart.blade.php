@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('content')
 @include('layouts.menubar')
+<?php 
+  $setting=DB::table('sitesetting')->first();
+  
+  $total_amount=0;
+  if(Session::has('coupon')){
+    $total_amount = intval(Session::get('coupon')['balance']) + intval($setting->shipping_charge);
+  }else{
+    $total_amount = intval(Cart::Subtotal()) + intval($setting->shipping_charge);
+  }
+?>
 <section id="cart-view">
    <div class="container">
      <div class="row">
@@ -31,7 +41,7 @@
                       <tr>
                         <td><a class="remove" href="{{URL::to('/remove/cart/'.$v_contents->rowId)}}"><fa class="fa fa-close"></fa></a></td>
                         <td><a href="#"><img width="50" height="50" src="{{$v_contents->options['image']}}" alt="img"></a></td>
-                        <td><a class="aa-cart-title" href="#">{{$v_contents->name}}</a></td>
+                        <td>{{$v_contents->name}} @if ($v_contents->options->buyone_getone == 1)<span style="color:#ff6666"> (Buy 1 Get 1) </span> @endif</td>
                         <td>$ {{$v_contents->price}}</td>
                         <td>
                           <?php if($v_contents->options->color_list=='' || $v_contents->options->color_list== NULL){ 
@@ -84,11 +94,12 @@
                               </select>
                         </td>
 
-                        <td>$ {{$v_contents->subtotal}}</td>
+                        <td>$ {{number_format($v_contents->subtotal,2)}}</td>
                           <input  type="hidden" value="{{$v_contents->rowId}}" name="cart_rowid[]">
                           <input  type="hidden" value="{{$v_contents->options->size_list}}" name="size_list[]">
                           <input  type="hidden" value="{{$v_contents->options->color_list}}" name="color_list[]">
                           <input  type="hidden" value="{{$v_contents->options->image}}" name="img_list[]">
+                          <input  type="hidden" value="{{$v_contents->options->buyone_getone}}" name="buyone_getone[]">
                           <input  type="hidden" value="{{$v_contents->id}}" name="product_id<?=$i?>">
                           <input  type="hidden" value="{{$v_contents->name}}" name="product_name<?=$i?>">
                           <input  type="hidden" value="{{$v_contents->options['color']}}" name="old_color<?=$i?>">
@@ -126,24 +137,21 @@
                    </tr>
                    <tr>
                      <th>Shipping Charge</th>
-                     <td>$ {{Cart::Subtotal()}}</td>
+                     <td>$ {{number_format($setting->shipping_charge,2)}}</td>
                    </tr>
-                   <tr>
+                   <!-- <tr>
                      <th>Vat 4.5%</th>
                      <td>
                        <?php 
-                        $total = (double) str_replace(',','',Cart::Subtotal());
-                        $vat= (($total * 4.5)/100);
-                        echo '$ '.$vat;
+                        //$total = (double) str_replace(',','',Cart::Subtotal());
+                        //$vat= (($total * 4.5)/100);
+                        //echo '$ '.$vat;
                        ?>
                      </td>
-                   </tr>
+                   </tr> -->
                    <tr>
                      <th>Grand Total</th>
-                     <td>$ {{$grand_total = $total + $vat}}
-
-                      <?php Session::put('grand_total',$grand_total); ?>
-                     </td>
+                     <td>$ {{number_format($total_amount,2)}}</td>
                    </tr>
                  </tbody>
                </table>

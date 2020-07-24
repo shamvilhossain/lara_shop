@@ -79,9 +79,9 @@ class PaymentController extends Controller
             $order['total']=$request->total_amount;
             $order['payment_type']='Cash on Delivery';
              if (Session::has('coupon')) {
-                 $order['subtotal']=Session::get('coupon')['balance'];
+                 $order['subtotal']=intval(Session::get('coupon')['balance']);
              }else{
-                  $order['subtotal']=Cart::Subtotal() ;
+                  $order['subtotal']=intval(Cart::Subtotal()) ;
             }
             $order['status']=0;
             $order['date']=date('d-m-y');
@@ -126,7 +126,8 @@ class PaymentController extends Controller
                       'messege'=>'Successfully Done',
                       'alert-type'=>'success'
             );
-            return Redirect()->to('/')->with($notification);
+            //return Redirect()->to('/')->with($notification);
+            return Redirect()->to('/success_payment/'.$uniq_id)->with($notification);
     	}
 
     }
@@ -149,9 +150,9 @@ class PaymentController extends Controller
             $data['total']=$payment->amount->value;
             $data['payment_type']='mollie';
              if (Session::has('coupon')) {
-                 $data['subtotal']=Session::get('coupon')['balance'];
+                 $data['subtotal']=intval(Session::get('coupon')['balance']);
              }else{
-                  $data['subtotal']=Cart::Subtotal() ;
+                  $data['subtotal']=intval(Cart::Subtotal()) ;
             }
             $data['status']=0;
             $data['date']=date('d-m-y');
@@ -200,7 +201,8 @@ class PaymentController extends Controller
                       'messege'=>'Successfully Done',
                       'alert-type'=>'success'
             );
-            return Redirect()->to('/')->with($notification);
+            // return Redirect()->to('/')->with($notification);
+            return Redirect()->to('/success_payment/'.$payment->metadata->order_id)->with($notification);
         }else{
             $notification=array(
                       'messege'=>'Payment Unsuccesful',
@@ -257,9 +259,9 @@ class PaymentController extends Controller
 			$data['total']=$request->total;
             $data['payment_type']=$request->payment_type;
 			 if (Session::has('coupon')) {
-			 	 $data['subtotal']=Session::get('coupon')['balance'];
+			 	 $data['subtotal']=intval(Session::get('coupon')['balance']);
     	     }else{
-    	  	      $data['subtotal']=Cart::Subtotal() ;
+    	  	      $data['subtotal']=intval(Cart::Subtotal()) ;
     	    }
     	    $data['status']=0;
     	    $data['date']=date('d-m-y');
@@ -307,7 +309,7 @@ class PaymentController extends Controller
                       'messege'=>'Successfully Done',
                       'alert-type'=>'success'
             );
-            return Redirect()->to('/')->with($notification);
+            return Redirect()->to('/success_payment/'.$charge->metadata->order_id)->with($notification);
 			
     }
 

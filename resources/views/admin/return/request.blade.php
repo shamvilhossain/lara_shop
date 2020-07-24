@@ -20,7 +20,7 @@
                   <th class="wd-20p">Total</th>
                    <th class="wd-20p">Date</th>
                    <th class="wd-20p">Cancel</th>
-                   <th class="wd-20p">Action</th>
+                   <th class="wd-20p" style="text-align:center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -36,12 +36,13 @@
                     @if($row->cancel_order == 1)
                      <span class="badge badge-warning">Cancel Request</span>
                     @elseif($row->cancel_order == 2)
-                    <span class="badge badge-success">Success</span>
+                    <span class="badge badge-danger">Request Canceled</span>
                      @endif
               
                   <td>
                     <a href="{{ URL::to('admin/view/order/'.$row->id) }}" class="btn btn-sm btn-info">View</a>
-                  	<a href="{{ URL::to('admin/approve/cancel/'.$row->id) }}" class="btn btn-sm btn-info">Approve</a>
+                    <a href="{{ URL::to('admin/approve/cancel/'.$row->id) }}" class="btn btn-sm btn-info">Approve</a>
+                  	<a href="{{ URL::to('admin/reject/cancel/'.$row->id) }}" class="btn btn-sm btn-danger">Reject</a>
                   </td>
                 </tr>
                 @endforeach

@@ -33,18 +33,25 @@
                   <td>{{ $row->total }} $</td>
                   <td>{{ $row->date }} </td>
                   <td>
-                    @if($row->status == 0)
-                     <span class="badge badge-warning">Pending</span>
-                    @elseif($row->status == 1)
-                    <span class="badge badge-info">Payment Accept</span>
-                    @elseif($row->status == 2) 
-                     <span class="badge badge-info">Progress </span>
-                     @elseif($row->status == 3)  
-                     <span class="badge badge-success">Delevered </span>
-                     @else
-                     <span class="badge badge-danger">Cancel </span>
-                     @endif
-              
+
+                    @if($row->cancel_order == 0)
+                      @if($row->status == 0)
+                       <span class="badge badge-warning">Pending</span>
+                      @elseif($row->status == 1)
+                      <span class="badge badge-info">Payment Accept</span>
+                      @elseif($row->status == 2) 
+                       <span class="badge badge-info">Progress </span>
+                       @elseif($row->status == 3)  
+                       <span class="badge badge-success">Delevered </span>
+                       @else
+                       <span class="badge badge-danger">Cancel </span>
+                       @endif
+                    @elseif($row->cancel_order == 1)
+                      <span class="badge badge-danger">Cancel Request By User </span>
+                    @else
+                      <span class="badge badge-danger">Cancel Request Accpted </span>
+                    @endif
+
                   <td>
                   	<a href="{{ URL::to('admin/view/order/'.$row->id) }}" class="btn btn-sm btn-info">View</a>
                   </td>

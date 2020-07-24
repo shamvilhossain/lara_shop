@@ -32,6 +32,7 @@ class CartController extends Controller
             $data['options']['size']='';
             $data['options']['color_list']=$product->product_color;
             $data['options']['size_list']=$product->product_size;
+            $data['options']['buyone_getone']=$product->buyone_getone;
             Cart::add($data);
             return response()->json(['success' => 'Successfully Added on your Cart']);
     	}else{
@@ -44,7 +45,8 @@ class CartController extends Controller
             $data['options']['color']='';
             $data['options']['size']=''; 
     	    $data['options']['color_list']= $product->product_color;
-            $data['options']['size_list']= $product->product_size;     
+            $data['options']['size_list']= $product->product_size;
+            $data['options']['buyone_getone']=$product->buyone_getone;     
     	    Cart::add($data);  
     	    return response()->json(['success' => 'Successfully Added on your Cart']);   
     	 }
@@ -79,7 +81,8 @@ class CartController extends Controller
             $data['options']['color']=$request->product_color;
             $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
-            $data['options']['size_list']= $product->product_size;  
+            $data['options']['size_list']= $product->product_size; 
+            $data['options']['buyone_getone']=$product->buyone_getone; 
             Cart::add($data);
             $notification=array(
                 'messege'=>'Product Added on your Cart',
@@ -97,6 +100,7 @@ class CartController extends Controller
             $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
             $data['options']['size_list']= $product->product_size;  
+            $data['options']['buyone_getone']=$product->buyone_getone;
             Cart::add($data);  
             $notification=array(
                 'messege'=>'Product Added on your Cart',
@@ -108,9 +112,18 @@ class CartController extends Controller
 
     public function ShowCart()
     {
-        //echo 'asdasd';exit;
-        $content = Cart::content();
-        return view('pages.cart',compact('content'));
+        if(Cart::count() > 0){
+            $content = Cart::content();
+            return view('pages.cart',compact('content'));
+        }else{
+            $notification=array(
+            'messege'=>'Cart is Empty !',
+            'alert-type'=>'error'
+             );
+        return Redirect()->back()->with($notification);  
+
+        }
+        
     }
 
     public function RemoveCart($rowId)
@@ -129,6 +142,7 @@ class CartController extends Controller
         $size_list = $request->size_list;
         $color_list = $request->color_list;
         $image_list = $request->img_list;
+        $buyone_getone = $request->buyone_getone;
         
         foreach ($cart_rowids as $index => $cart_rowid){
                 $data=array();
@@ -138,6 +152,7 @@ class CartController extends Controller
                 $data['options']['size']= ($product_sizes[$index] != '0' ? $product_sizes[$index] : '');
                 $data['options']['color_list']= $color_list[$index];
                 $data['options']['size_list']= $size_list[$index]; 
+                $data['options']['buyone_getone']= $buyone_getone[$index]; 
                 $rowId = $cart_rowid;
                 //$qty = $qtys[$index];
                 Cart::update($rowId, $data);
@@ -161,6 +176,7 @@ class CartController extends Controller
         $product_size= explode(',', $product_info->product_size);
         if($product_info->discount_price == NULL){ $price = $product_info->selling_price; }
         else{ $price=$product_info->discount_price;} 
+        $url = $product_id."/".str_slug($product_info->product_name, '-');
         
        // return response()->json($product_color);
         return response::json(array(
@@ -168,6 +184,7 @@ class CartController extends Controller
                 'price' => $price,
                 'color' => $product_color,
                 'size' => $product_size,
+                'url_part' => $url
          ));                        
                
     }
@@ -194,7 +211,8 @@ class CartController extends Controller
             $data['options']['color']=$request->color;
             $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
-            $data['options']['size_list']= $product->product_size;  
+            $data['options']['size_list']= $product->product_size; 
+            $data['options']['buyone_getone']=$product->buyone_getone; 
             Cart::add($data);
             $notification=array(
                 'messege'=>'Product Added on your Cart',
@@ -211,7 +229,8 @@ class CartController extends Controller
             $data['options']['color']=$request->color;
             $data['options']['size']=$request->product_size;
             $data['options']['color_list']= $product->product_color;
-            $data['options']['size_list']= $product->product_size;  
+            $data['options']['size_list']= $product->product_size;
+            $data['options']['buyone_getone']=$product->buyone_getone;  
             Cart::add($data);  
             $notification=array(
                 'messege'=>'Product Added on your Cart',
@@ -224,10 +243,19 @@ class CartController extends Controller
     public function Checkout()
     {
         if(Auth::check()){
-            $cart = Cart::content();
-            $customer_id = Auth::id();
-            $customer_info = DB::table('users')->where('id',$customer_id)->first();
-            return view('pages.checkout',compact('cart','customer_info'));
+            if(Cart::count() > 0){
+                $cart = Cart::content();
+                $customer_id = Auth::id();
+                $customer_info = DB::table('users')->where('id',$customer_id)->first();
+                return view('pages.checkout',compact('cart','customer_info'));
+            }else{
+                $notification=array(
+                'messege'=>'Cart is Empty !',
+                'alert-type'=>'error'
+                 );
+            return Redirect()->back()->with($notification);  
+
+            }
         }else{
             $notification=array(
                 'messege'=>'At First Login Your Account',

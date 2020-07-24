@@ -15,7 +15,7 @@ class OrderController extends Controller
 
     public function NewOrder()
     {
-    	$order=DB::table('orders')->where('status',0)->get();
+    	$order=DB::table('orders')->where('status',0)->where('cancel_order', '!=' , 2)->orderBy('id','desc')->get();
     	return view('admin.order.pending',compact('order'));
     }
 
@@ -27,7 +27,7 @@ class OrderController extends Controller
     	 $shipping=DB::table('shipping')->where('order_id',$id)->first();
 
     	 $details=DB::table('order_details')->join('products','order_details.product_id','products.id')
-    	 		->select('products.product_code','products.image_one','order_details.*')
+    	 		->select('products.product_code','products.image_one','products.buyone_getone','order_details.*')
     	 		->where('order_details.order_id',$id)->get();
 
         return view('admin.order.view_order',compact('order','shipping','details'));
@@ -56,7 +56,7 @@ class OrderController extends Controller
 
     public function AcceptPaymentOrder()
     {
-    	$order=DB::table('orders')->where('status',1)->get();
+    	$order=DB::table('orders')->where('status',1)->where('cancel_order', '!=' , 2)->get();
     	return view('admin.order.pending',compact('order'));
     }
 
@@ -68,13 +68,13 @@ class OrderController extends Controller
 
     public function ProgressDeliveryOrder()
     {
-    	$order=DB::table('orders')->where('status',2)->get();
+    	$order=DB::table('orders')->where('status',2)->where('cancel_order', '!=' , 2)->get();
     	return view('admin.order.pending',compact('order'));
     }
 
     public function SuccessDeliveryOrder()
     {
-    	$order=DB::table('orders')->where('status',3)->get();
+    	$order=DB::table('orders')->where('status',3)->where('cancel_order', '!=' , 2)->get();
     	return view('admin.order.pending',compact('order'));
     }
 
@@ -100,13 +100,18 @@ class OrderController extends Controller
 
     public function DeliveryDone($id)
     {
+        $order_details=DB::table('order_details')->where('order_id',$id)->get();
 
-        $product=DB::table('order_details')->where('order_id',$id)->get();
-
-        foreach ($product as $row) {
-            DB::table('products')
-              ->where('id',$row->product_id)
-              ->update(['product_quantity' => DB::raw('product_quantity -'.$row->quantity)]);
+        foreach ($order_details as $row) {
+            $product=DB::table('products')->where('id',$row->product_id)->first();
+            $final_qty=$row->quantity;
+            if($product->buyone_getone == 1){
+                $final_qty= $row->quantity * 2;
+            }    
+                DB::table('products')
+                ->where('id',$row->product_id)
+                ->update(['product_quantity' => DB::raw('product_quantity -'.$final_qty)]);
+            
         }
 
         DB::table('orders')->where('id',$id)->update(['status'=>3]);

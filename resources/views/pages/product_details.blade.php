@@ -34,7 +34,10 @@
                 <!-- Modal view content -->
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <div class="aa-product-view-content">
-                    <h3>{{$product_info->product_name}}</h3>
+                    <h3>{{$product_info->product_name}} @if($product_info->buyone_getone == 1)<span style="color:#ff6666"> (Buy One Get One)</span> @endif </h3>
+                     
+                      
+                    
                     <div class="aa-price-block">
                       @if($product_info->discount_price == NULL)
                       <span class="aa-product-view-price">${{ $product_info->selling_price }}</span>
@@ -42,6 +45,7 @@
                         <span class="aa-product-view-price">${{ $product_info->discount_price }}</span>&nbsp;&nbsp;<span class="aa-product-view-price" style="color:red"><del>${{ $product_info->selling_price }}</del></span>
                       @endif
                       <p class="aa-product-avilability">Brand: <span>{{$product_info->brand_name}}</span></p>
+                      <p class="aa-product-avilability"> Product Code: {{ $product_info->product_code }}</p>
                       <p class="aa-product-avilability">Avilability: 
                         <?php if($product_info->product_quantity >= 5){ echo '<span style="color:green">In Stock</span>';}
                         elseif ($product_info->product_quantity < 5 && $product_info->product_quantity > 0 ) { echo '<span style="color:#b93958">Limited</span>'; }
@@ -49,7 +53,7 @@
                         ?>
                       </p>
                     </div>
-                    <p>{{$product_info->video_link }}</p>
+                    
 
                   {!! Form::open(['url' => '/cart/product/add/'.$product_info->id,'method' => 'post']) !!}
 
@@ -108,7 +112,7 @@
                       <div class="sharethis-inline-share-buttons"></div>
                       <div class="aa-prod-view-bottom">
                         <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
-                        <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
+                        <a class="aa-add-to-cart-btn addwishlist" data-id="{{ $product_info->id }}" href="#">Wishlist</a>
                         <!-- <a class="aa-add-to-cart-btn" href="#">Compare</a> -->
                       </div>
 
@@ -130,9 +134,10 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div class="tab-pane fade in active" id="description">
+                <p class="">For Detailes:<a href="{{ $product_info->video_link }}"> {{ $product_info->video_link }}</a> </p>
+                  
                   {!! $product_info->product_details !!}
                 
-                 
                 </div>
 
                 <div class="tab-pane fade " id="review">

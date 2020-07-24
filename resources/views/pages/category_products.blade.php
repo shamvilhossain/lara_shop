@@ -6,22 +6,22 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3"><br/>
-        <h2 style="text-align: center;"><?php if($type=='featured'){ echo 'Featured Products'; }else{ echo 'All Products'; } ?></h2>
+        <h2 style="text-align: center;">{{ count($products) > 0 ? $products[0]->category_name.' Products' : 'No Products ' }} </h2>
 
           <div class="aa-product-catg-content">
             <div class="aa-product-catg-head">
               <div class="aa-product-catg-head-left">
-                <form  class="aa-sort-form" action="" method="get">
+
+                <form action="" class="aa-sort-form" action="" method="get">
                 
                   
                   <label for="">Sort by</label>
                   <!-- <select name="zzz" onchange="this.form.submit()"> -->
-                  <select name="sort_val" style="width:auto;">
+                  <select name="sort_val">
                     <option value="1" {{($sort_val==1) ? 'selected' : ''}}>Latest</option>
                     <option value="2" {{($sort_val==2) ? 'selected' : ''}}>Name</option>
                     <option value="3" {{($sort_val==3) ? 'selected' : ''}}>Price (High to Low)</option>
                     <option value="4" {{($sort_val==4) ? 'selected' : ''}}>Price (Low to High)</option>
-                    <option value="5" {{($sort_val==5) ? 'selected' : ''}}>Popularity</option>
                   </select>
                 <!-- </form>
                 <form action="" class="aa-show-form" > -->
@@ -143,7 +143,7 @@
                         </div>                        
                       </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
-                  </div><!-- / quick view modal -->    
+                  </div><!-- / quick view modal -->  
             </div>
             <div class="aa-product-catg-pagination">
               <nav>
@@ -202,7 +202,7 @@
               <h3>Latest Products</h3>
               <div class="aa-recently-views">
                 <ul>
-                @foreach ($latest_product as $v_product) 
+                  @foreach ($latest_product as $v_product) 
                   <li>
                     <a href="{{url('product/details/'.$v_product->id.'/'.str_slug($v_product->product_name, '-'))}}" class="aa-cartbox-img"><img alt="img" src="{{asset($v_product->image_one)}}"></a>
                     <div class="aa-cartbox-info">
@@ -215,7 +215,8 @@
                       
                     </div>                    
                   </li>
-                @endforeach                                      
+                @endforeach 
+                                                       
                 </ul>
               </div>                            
             </div>
@@ -225,6 +226,7 @@
     </div>
   </section>
 
+
 <script type="text/javascript">
     $(document).on('click', '.size_cls', function(e){
       var item = $(this).text();
@@ -233,6 +235,4 @@
       $('#product_size').val(item);
     });
 </script> 
-
-
  @endsection      

@@ -6,11 +6,10 @@
   $shipping_charge = $setting->shipping_charge;
   $cart=Cart::content();
   $total_amount=0;
-  if(Session::has('coupon')){
-    $total_amount = Session::get('coupon')['balance'] + $shipping_charge;
-  }
-  else{
-    $total_amount = Cart::Subtotal() + $shipping_charge;
+if(Session::has('coupon')){
+    $total_amount = intval(Session::get('coupon')['balance']) + intval($setting->shipping_charge);
+  }else{
+    $total_amount = intval(Cart::Subtotal()) + intval($setting->shipping_charge);
   }
 ?>
 
@@ -80,14 +79,14 @@
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="tel" id="phone" name="phone" value="{{ $customer_info->phone ? $customer_info->phone : '' }}" placeholder="Phone*">
+                                <input type="tel" id="phone" name="phone" value="{{ $customer_info->phone ? $customer_info->phone : '' }}" placeholder="Phone*" required>
                               </div>
                             </div>
                           </div> 
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <textarea cols="8" rows="3" name="address" id="address"> </textarea>
+                                <textarea cols="8" rows="3" name="address" id="address" placeholder="Address*" required>{{ $customer_info->address ? $customer_info->address : '' }}</textarea>
                               </div>                             
                             </div>                            
                           </div>   
@@ -108,12 +107,12 @@
                            
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" id="city" name="city" value="" placeholder="City / Town*" required>
+                                <input type="text" id="city" name="city" value="{{ $customer_info->city ? $customer_info->city : '' }}" placeholder="City / Town" required>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" id="zip_code" name="zip_code" value="" placeholder="Postcode / ZIP*">
+                                <input type="text" id="zip_code" name="zip_code" value="{{ $customer_info->zip_code ? $customer_info->zip_code : '' }}" placeholder="Postcode / ZIP">
                               </div>
                             </div>
                           </div>
@@ -139,52 +138,49 @@
                         </tr>
                       </thead>
                       <tbody>
+                      <?php foreach ($cart as $v_contents){  ?>
                         <tr>
-                          <td>T-Shirt <strong> x  1</strong></td>
-                          <td>$150</td>
+                          <td style="text-align:left">{{$v_contents->name}} @if ($v_contents->options->buyone_getone == 1)<span style="color:#ff6666"> (Buy 1 Get 1) </span> @endif <strong> x  {{$v_contents->qty}}</strong></td>
+                          <td style="text-align:right">$ {{number_format($v_contents->subtotal,2)}}</td>
                         </tr>
-                        <tr>
-                          <td>Polo T-Shirt <strong> x  1</strong></td>
-                          <td>$250</td>
-                        </tr>
-                        <tr>
-                          <td>Shoes <strong> x  1</strong></td>
-                          <td>$350</td>
-                        </tr>
+                      <?php } ?> 
                       </tbody>
-                      <tfoot>
+                      <tfoot >
+
+                       @if(Session::has('coupon'))
                         <tr>
-                          <th>Subtotal</th>
-                          @if(Session::has('coupon'))
-                            <td>${{Session::get('coupon')['balance']}}</td>
-                          @else
-                            <td>${{Cart::Subtotal()}}</td>
-                          @endif
-                        </tr>
-                        @if(Session::has('coupon'))
-                        <tr>
-                          <th>Coupon: {{Session::get('coupon')['name']}} 
+                          <th style="text-align:left">Coupon: {{Session::get('coupon')['name']}} 
                             <a href="{{route('coupon.remove')}}"class="btn btn-danger btn-sm">X</a>
                           </th>
-                          <td>${{Session::get('coupon')['discount']}}</td>
+                          <td style="text-align:right">${{Session::get('coupon')['discount']}}</td>
                         </tr>
                         @endif
-                        
+
                         <tr>
-                          <th>Shipping Charge</th>
-                          <td>${{ $shipping_charge}}</td>
-                        </tr>
-                        <tr>
-                          <th>Vat</th>
-                          <td>$0</td>
+                          <th style="text-align:left">Subtotal</th>
+                          @if(Session::has('coupon'))
+                            <td style="text-align:right">${{Session::get('coupon')['balance']}}</td>
+                          @else
+                            <td style="text-align:right">${{number_format(intval(Cart::Subtotal()),2)}}</td>
+                          @endif
                         </tr>
                        
+                        
                         <tr>
-                          <th>Total</th>
+                          <th style="text-align:left">Shipping Charge</th>
+                          <td style="text-align:right">${{ number_format($shipping_charge,2)}}</td>
+                        </tr>
+                        <!-- <tr>
+                          <th>Vat</th>
+                          <td>$0</td>
+                        </tr> -->
+                       
+                        <tr>
+                          <th style="text-align:left">Total</th>
                           @if(Session::has('coupon'))
-                            <td>${{Session::get('coupon')['balance'] + $shipping_charge}}</td>
+                            <td style="text-align:right">${{ number_format((Session::get('coupon')['balance'] + $shipping_charge),2) }}</td>
                           @else
-                            <td>${{Cart::Subtotal() + $shipping_charge}}</td>
+                            <td style="text-align:right">${{ number_format((intval(Cart::Subtotal()) + $shipping_charge),2) }}</td>
                           @endif
                           
                         </tr>

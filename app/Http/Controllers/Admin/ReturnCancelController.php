@@ -29,6 +29,16 @@ class ReturnCancelController extends Controller
                  return Redirect()->back()->with($notification);
     }
 
+    public function RejectCancel($id)
+    {
+        DB::table('orders')->where('id',$id)->update(['cancel_order'=>0]);
+          $notification=array(
+                              'messege'=>'Cancel Request Rejected',
+                               'alert-type'=>'success'
+                         );
+                 return Redirect()->back()->with($notification);
+    }
+
     public function AllCancel()
     {
     	 $order=DB::table('orders')->where('cancel_order',2)->get();

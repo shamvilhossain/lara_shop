@@ -52,19 +52,19 @@
         text-decoration: none;
         color: #fff;
         margin: 2px;
-        height: 30px;
+        height: 33px;
         display: inline-block;
         width: 97%;
-        padding: 8px 0;
+        padding: 4px 0;
         text-align: center;
         cursor: pointer;
     }
     .btn-facebook{
-        background-color: var(--color-facebook);
+        background-color: #3B5998;
     } 
     
     .btn-google{
-        background-color: var(--color-google);
+        background-color: #DD4B39;
     } 
    </style> 
 
@@ -75,7 +75,7 @@
    <!-- wpf loader Two -->
     <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
-        <span>Loading</span>
+        <span>Welcome</span>
       </div>
     </div> 
     <!-- / wpf loader Two -->       
@@ -151,7 +151,7 @@
                    @php
                     $wishlists=DB::table('wishlists')->where('user_id',Auth::id())->get();
                    @endphp  
-                    <li class="hidden-xs"><a href="{{ route('user.wishlist')}}">Wishlist ({{count($wishlists)}})</a></li>
+                    <li class="hidden-xs"><a href="{{ route('user.wishlist')}}">Wishlist(<span id="wish_count">{{count($wishlists)}}</span>)</a></li>
                     <li><a href="{{route('home')}}">Profile</a></li>  
                     <li class="hidden-xs"><a href="{{ route('user.logout') }}">Logout</a></li>         
                   @endguest
@@ -194,9 +194,9 @@
                 <a class="aa-cart-link" href="{{route('show.cart')}}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">{{Cart::count()}}</span>
+                  <span class="aa-cart-notify" id="cart_count">{{Cart::count()}}</span>
                 </a>
-                <div class="aa-cartbox-summary">
+                <!-- <div class="aa-cartbox-summary">
                   <ul>
                     <li>
                       <a class="aa-cartbox-img" href="#"><img src="{{asset('public/frontend/img/woman-small-2.jpg')}}" alt="img"></a>
@@ -224,7 +224,7 @@
                     </li>
                   </ul>
                   <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
-                </div>
+                </div> -->
               </div>
               <!-- / cart box -->
               <!-- search box -->
@@ -445,6 +445,8 @@
                          type:"GET",
                          dataType:"json",
                          success:function(data) {
+                          var wish_count = parseInt($('#wish_count').text());
+                          $('#wish_count').text(++wish_count);
                            const Toast = Swal.mixin({
                               toast: true,
                               position: 'top-end',
@@ -593,6 +595,105 @@ $(document).ready(function(){
               }
       })
     }
+</script>
+<!-- ///////// -->
+<script type="text/javascript">
+    function productview(id){
+          $.ajax({
+               url: "{{  url('/cart/product/view/') }}/"+id,
+               type:"GET",
+               dataType:"json",
+               success:function(data) {
+                 $('#pname').text(data.product.product_name);
+                 $('#pimage').attr('src','{{ url("/") }}/' + data.product.image_one);
+                 $('#pcat').text(data.product.category_name);
+                 $('#pbrand').text(data.product.brand_name);
+                 $('#pcode').text(data.product.product_code);
+                 $('#pprice').text(data.price);
+                 $('#product_id').val(data.product.id);
+                 $('#product_size').val('');
+                 
+                 var url = '{{ url("product/details/") }}/'+ data.url_part ;
+                 $('#pdetails').attr('href',url);
+
+                 var p_qty= data.product.product_quantity;
+                  if(p_qty >= 5){
+                    $('#avilability').text('In Stock');
+                  }else if(p_qty < 5 && p_qty > 0 ){
+                    $('#avilability').text('Limited');
+                  }else{
+                    $('#avilability').text('Out of Stock');
+                  }
+                 var d =$('#sizediv').empty();
+                 $('#size_head').hide();
+                   $.each(data.size, function(key, value){
+                       $('#sizediv').append('<a class="size_cls" style="cursor:pointer" value="'+ value +'">' + value + '</a>');
+                        if (data.size == "") {
+                              $('#size_head').hide();   
+                              $('#sizediv').hide();   
+                        }else{
+                              $('#size_head').show();
+                              $('#sizediv').show();
+                        } 
+                   });
+
+                  var d =$('select[name="color"]').empty();
+                   $.each(data.color, function(key, value){
+                       $('select[name="color"]').append('<option value="'+ value +'">' + value + '</option>');
+                         if (data.color == "") {
+                              $('#colordiv').hide();
+                        } else{
+                             $('#colordiv').show();
+                        }
+                   });
+              }
+      })
+    }
+</script>
+
+
+<script type="text/javascript">
+      $(document).ready(function() {
+            $('.addcart').on('click', function(e){  
+              e.preventDefault();
+              var id = $(this).data('id');
+              if(id) {
+                 $.ajax({
+                     url: "{{  url('/add/to/cart') }}/"+id,
+                     type:"GET",
+                     dataType:"json",
+                     success:function(data) {
+                      var cart_count = parseInt($('#cart_count').text());
+                      $('#cart_count').text(++cart_count);
+                       const Toast = Swal.mixin({
+                          toast: true,
+                          position: 'top-end',
+                          showConfirmButton: false,
+                          timer: 3000
+                        })
+
+                       if($.isEmptyObject(data.error)){
+                            Toast.fire({
+                              type: 'success',
+                              title: data.success
+                            })
+                       }else{
+                             Toast.fire({
+                                type: 'error',
+                                title: data.error
+                            })
+                       }
+
+                     },
+                    
+                 });
+             } else {
+                 alert('danger');
+             }
+              e.preventDefault();
+         });
+     });
+
 </script>
 
   </body>

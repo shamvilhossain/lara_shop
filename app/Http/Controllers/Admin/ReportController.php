@@ -16,21 +16,21 @@ class ReportController extends Controller
     public function TodayOrder()
     {
     	  $today=date('d-m-y');
-    	  $order=DB::table('orders')->where('status',0)->where('date',$today)->get();
+    	  $order=DB::table('orders')->where('date',$today)->get();
     	  return view('admin.report.today_order',compact('order'));
     }
 
     public function TodayDelevered()
     {
           $today=date('d-m-y');
-    	  $order=DB::table('orders')->where('status',3)->where('date',$today)->get();
+    	  $order=DB::table('orders')->where('status',3)->where('cancel_order',0)->where('date',$today)->get();
     	  return view('admin.report.today_order',compact('order'));
     }
 
     public function ThisMonth()
     {
     	  $month=date('F');
-    	  $order=DB::table('orders')->where('status',3)->where('month',$month)->get();
+    	  $order=DB::table('orders')->where('status',3)->where('cancel_order',0)->where('month',$month)->get();
     	  return view('admin.report.today_order',compact('order'));
     }
 

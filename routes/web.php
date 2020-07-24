@@ -132,11 +132,14 @@ Route::get('download/{getFilename}', 'Admin\SettingController@DownloadDatabase')
 //return or cancel products admin panel
  Route::get('admin/cancel/request', 'Admin\ReturnCancelController@request')->name('admin.cancel.request');
  Route::get('/admin/approve/cancel/{id}', 'Admin\ReturnCancelController@ApproveCancel');
+ Route::get('/admin/reject/cancel/{id}', 'Admin\ReturnCancelController@RejectCancel');
  Route::get('admin/all/cancel', 'Admin\ReturnCancelController@AllCancel')->name('admin.all.cancel');
 
 //Front==========
 Route::post('store/newslater', 'FrontController@StoreNewslater')->name('store.newslater');
 Route::get('products/{id}','ProductController@SubCategoryProduct');
+Route::get('category_product/{id}/{cat_name}','ProductController@CategoryProduct');
+Route::get('all_products/{type?}','ProductController@AllProduct');
 Route::post('order/tracking', 'FrontController@OrderTracking')->name('order.tracking');
 Route::get('request/cancel/{id}', 'PaymentController@RequestCancel');
 //Route::post('full-text-search/action', 'ProductController@search_action')->name('full-text-search.action');
@@ -169,6 +172,7 @@ Route::get('order/view/{id}','FrontController@ViewOrder');
 //Payment ===========
 Route::post('user/payment/process','PaymentController@Payment')->name('payment.process');
 Route::post('user/payment/charge','PaymentController@StripeCharge')->name('stripe.charge');
+Route::get('success_payment/{stripe_order_id}','HomeController@success_payment');
 
 //Route::name('webhooks.mollie')->post('webhooks/mollie', 'MollieWebhookController@handle');
 Route::post('webhooks/mollie','PaymentController@Molliehandle')->name('webhooks.mollie');

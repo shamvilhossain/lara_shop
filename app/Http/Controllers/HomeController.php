@@ -82,4 +82,14 @@ class HomeController extends Controller
             //return Redirect()->to('/')->with($notification);
 
     }
+
+    public function success_payment($stripe_order_id)
+    {
+      $order = DB::table('orders')->where('stripe_order_id',$stripe_order_id)->first();
+      if($order){
+        return view('pages.success_payment',compact('order'));
+      }else{
+        return view('pages.not_found');
+      }
+    }
 }

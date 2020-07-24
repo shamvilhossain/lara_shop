@@ -51,7 +51,7 @@
                     <img src="{{ URL::to($buygetone_product->image_one) }}" alt="{{ $buygetone_product->product_name }}">                    
                     <div class="aa-prom-content">
                       <span>Buy One Get One</span>
-                      <h4><a href="#">For {{ $buygetone_product->product_name }}</a></h4>                      
+                      <h4><a href="{{url('product/details/'.$buygetone_product->id.'/'.str_slug($buygetone_product->product_name, '-'))}}">For {{ $buygetone_product->product_name }}</a></h4>                      
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                             @endphp   
                               <span>{{ intval($discount) }}% OFF</span>
                           @endif
-                          <h4 ><a href="#" >For {{ $row->product_name }}</a></h4>                        
+                          <h4 ><a href="{{url('product/details/'.$row->id.'/'.str_slug($row->product_name, '-'))}}" >For {{ $row->product_name }}</a></h4>                        
                         </div>
                       </div>
                     </div>
@@ -118,7 +118,7 @@
                               <a class="aa-product-img" href="{{url('product/details/'.$f_product->id.'/'.str_slug($f_product->product_name, '-'))}}"><img src="{{asset($f_product->image_one)}}" alt="{{$f_product->product_name}}"></a>
                               <a class="aa-add-card-btn addcart" data-id="{{ $f_product->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                 <figcaption>
-                                <h4 class="aa-product-title"><a href="#">{{$f_product->product_name}}</a></h4>
+                                <h4 class="aa-product-title"><a href="{{url('product/details/'.$f_product->id.'/'.str_slug($f_product->product_name, '-'))}}">{{$f_product->product_name}}</a></h4>
                                 
                                 @if($f_product->discount_price == NULL)
                                 <span class="aa-product-price">${{ $f_product->selling_price }}</span>
@@ -130,7 +130,7 @@
                             </figure>                        
                             <div class="aa-product-hvr-content">
                               <a class="addwishlist" data-id="{{ $f_product->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                              <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                              <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a> -->
                               <a href="#" id="{{ $f_product->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" onclick="productview(this.id)"><span class="fa fa-search"></span></a>                          
                             </div>
                             <!-- product badge -->
@@ -141,7 +141,7 @@
                         @endforeach
                                                
                       </ul>
-                      <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                      <a class="aa-browse-btn" href="{{ url('all_products/featured') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                     </div>
                     <!-- / men product category -->
                   </div>
@@ -207,7 +207,7 @@
                                 
                                     <div class="aa-prod-view-bottom">
                                       <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
-                                      <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                      <a id="pdetails" href="#" class="aa-add-to-cart-btn">View Details</a>
                                     </div>
                                 </form>
                               </div>
@@ -262,8 +262,8 @@
                     @foreach($popular_product as $row)
                       <li>
                         <figure>
-                          <a class="aa-product-img" href="#"><img src="{{asset($row->image_one)}}" alt="{{ $row->product_name }}"></a>
-                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-product-img" href="{{url('product/details/'.$row->id.'/'.str_slug($row->product_name, '-'))}}"><img src="{{asset($row->image_one)}}" alt="{{$row->product_name}}"></a>
+                          <a class="aa-add-card-btn addcart" data-id="{{ $row->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="#">{{ $row->product_name }}</a></h4>
                             @if($row->discount_price == NULL)
@@ -274,9 +274,9 @@
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                          <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a> -->
+                        <a href="#" id="{{ $row->id }}"  data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" onclick="productview(this.id)"><span class="fa fa-search"></span></a>                             
                         </div>
                         <!-- product badge -->
                         @if($row->discount_price != NULL)
@@ -286,19 +286,19 @@
                     @endforeach
                                                                                                        
                   </ul>
-                  <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                  <a class="aa-browse-btn" href="{{ url('all_products') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 <!-- / popular product category -->
                 
                 <!-- start trend product category -->
                 <div class="tab-pane fade" id="trend">
-                 <ul class="aa-product-catg aa-featured-slider">
+                  <ul class="aa-product-catg aa-latest-slider">
                     <!-- start single product item -->
                     @foreach($trend_product as $row)
                       <li>
                         <figure>
-                          <a class="aa-product-img" href="#"><img src="{{asset($row->image_one)}}" alt="{{ $row->product_name }}"></a>
-                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-product-img" href="{{url('product/details/'.$row->id.'/'.str_slug($row->product_name, '-'))}}"><img src="{{asset($row->image_one)}}" alt="{{$row->product_name}}"></a>
+                          <a class="aa-add-card-btn addcart" data-id="{{ $row->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="#">{{ $row->product_name }}</a></h4>
                             @if($row->discount_price == NULL)
@@ -309,9 +309,9 @@
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                          <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a> -->
+                        <a href="#" id="{{ $row->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" onclick="productview(this.id)"><span class="fa fa-search"></span></a>                           
                         </div>
                         <!-- product badge -->
                         @if($row->discount_price != NULL)
@@ -319,10 +319,9 @@
                         @endif
                       </li>
                     @endforeach
-                     <!-- start single product item -->
-                                                                                                      
+                                                                                                        
                   </ul>
-                  <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                   <a class="aa-browse-btn" href="{{ url('all_products') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 <!-- / featured product category -->
 
@@ -333,8 +332,8 @@
                     @foreach($latest_product as $row)
                       <li>
                         <figure>
-                          <a class="aa-product-img" href="#"><img src="{{asset($row->image_one)}}" alt="{{ $row->product_name }}"></a>
-                          <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                          <a class="aa-product-img" href="{{url('product/details/'.$row->id.'/'.str_slug($row->product_name, '-'))}}"><img src="{{asset($row->image_one)}}" alt="{{$row->product_name}}"></a>
+                          <a class="aa-add-card-btn addcart" data-id="{{ $row->id }}" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                           <figcaption>
                             <h4 class="aa-product-title"><a href="#">{{ $row->product_name }}</a></h4>
                             @if($row->discount_price == NULL)
@@ -345,9 +344,9 @@
                           </figcaption>
                         </figure>                     
                         <div class="aa-product-hvr-content">
-                          <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                          <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
+                        <a class="addwishlist" data-id="{{ $row->id }}" href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <!-- <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a> -->
+                        <a href="#" id="{{ $row->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal" onclick="productview(this.id)"><span class="fa fa-search"></span></a>                           
                         </div>
                         <!-- product badge -->
                         @if($row->discount_price != NULL)
@@ -357,7 +356,7 @@
                     @endforeach
                                                                                                         
                   </ul>
-                   <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                   <a class="aa-browse-btn" href="{{ url('all_products') }}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 <!-- / latest product category -->              
               </div>
@@ -555,56 +554,7 @@
 </div>
 
 <!--modal end-->
-<script type="text/javascript">
-    function productview(id){
-          $.ajax({
-               url: "{{  url('/cart/product/view/') }}/"+id,
-               type:"GET",
-               dataType:"json",
-               success:function(data) {
-                 $('#pname').text(data.product.product_name);
-                 $('#pimage').attr('src',data.product.image_one);
-                 $('#pcat').text(data.product.category_name);
-                 $('#pbrand').text(data.product.brand_name);
-                 $('#pcode').text(data.product.product_code);
-                 $('#pprice').text(data.price);
-                 $('#product_id').val(data.product.id);
-                 $('#product_size').val('');
 
-                 var p_qty= data.product.product_quantity;
-                  if(p_qty >= 5){
-                    $('#avilability').text('In Stock');
-                  }else if(p_qty < 5 && p_qty > 0 ){
-                    $('#avilability').text('Limited');
-                  }else{
-                    $('#avilability').text('Out of Stock');
-                  }
-                 var d =$('#sizediv').empty();
-                 $('#size_head').hide();
-                   $.each(data.size, function(key, value){
-                       $('#sizediv').append('<a class="size_cls" style="cursor:pointer" value="'+ value +'">' + value + '</a>');
-                        if (data.size == "") {
-                              $('#size_head').hide();   
-                              $('#sizediv').hide();   
-                        }else{
-                              $('#size_head').show();
-                              $('#sizediv').show();
-                        } 
-                   });
-
-                  var d =$('select[name="color"]').empty();
-                   $.each(data.color, function(key, value){
-                       $('select[name="color"]').append('<option value="'+ value +'">' + value + '</option>');
-                         if (data.color == "") {
-                              $('#colordiv').hide();
-                        } else{
-                             $('#colordiv').show();
-                        }
-                   });
-              }
-      })
-    }
-</script>
 <script type="text/javascript">
     $(document).on('click', '.size_cls', function(e){
       var item = $(this).text();
@@ -614,46 +564,5 @@
     });
 </script> 
 
-<script type="text/javascript">
-      $(document).ready(function() {
-            $('.addcart').on('click', function(e){  
-              e.preventDefault();
-              var id = $(this).data('id');
-              if(id) {
-                 $.ajax({
-                     url: "{{  url('/add/to/cart') }}/"+id,
-                     type:"GET",
-                     dataType:"json",
-                     success:function(data) {
-                       const Toast = Swal.mixin({
-                          toast: true,
-                          position: 'top-end',
-                          showConfirmButton: false,
-                          timer: 3000
-                        })
-
-                       if($.isEmptyObject(data.error)){
-                            Toast.fire({
-                              type: 'success',
-                              title: data.success
-                            })
-                       }else{
-                             Toast.fire({
-                                type: 'error',
-                                title: data.error
-                            })
-                       }
-
-                     },
-                    
-                 });
-             } else {
-                 alert('danger');
-             }
-              e.preventDefault();
-         });
-     });
-
-</script>
 
 @endsection

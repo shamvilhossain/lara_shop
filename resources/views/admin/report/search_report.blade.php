@@ -3,7 +3,7 @@
     <div class="sl-mainpanel">
       <div class="sl-pagebody">
         <div class="sl-page-title">
-          <h5>Report List</h5>
+          <h5>Report List - Delivered Orders</h5>
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
@@ -33,6 +33,7 @@
                   <td>{{ $row->total }} $</td>
                   <td>{{ $row->date }} </td>
                   <td>
+                  @if($row->cancel_order == 0)
                     @if($row->status == 0)
                      <span class="badge badge-warning">Pending</span>
                     @elseif($row->status == 1)
@@ -44,7 +45,11 @@
                      @else
                      <span class="badge badge-danger">Cancel </span>
                      @endif
-              
+                  @elseif($row->cancel_order == 1)
+                      <span class="badge badge-danger">Cancel Request By User </span>
+                  @else
+                    <span class="badge badge-danger">Cancel Request Accpted </span>
+                  @endif
                   <td>
                   	<a href="{{ URL::to('admin/view/order/'.$row->id) }}" class="btn btn-sm btn-info">View</a>
                   </td>

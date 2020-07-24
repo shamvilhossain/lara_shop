@@ -24,7 +24,10 @@
                     @php  
                         $subcategory=DB::table('subcategories')->where('category_id',$cat->id)->get();
                     @endphp
-              <li><a href="#">{{ $cat->category_name }} {!! count($subcategory) > 0 ? '<span class="caret"></span>' : '' !!} </a> 
+              <li><a href="{{url('category_product/'.$cat->id.'/'.str_slug($cat->category_name, '-'))}}">
+                  {{ $cat->category_name }} 
+                  {!! count($subcategory) > 0 ? '<span class="caret"></span>' : '' !!} 
+                  </a> 
                 <?php
                     if(count($subcategory) > 0){
                 ?>
@@ -42,7 +45,7 @@
                 <?php }  ?>
               </li>
               @endforeach
-              <li><a href="{{route('blog.post')}}">Blog</a></li>
+              <!-- <li><a href="{{route('blog.post')}}">Blog</a></li> -->
              {{-- <li><a href="#">Sports</a></li>
              
               <li><a href="#">Pages <span class="caret"></span></a>

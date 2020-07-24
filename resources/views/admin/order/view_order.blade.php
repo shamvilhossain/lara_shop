@@ -84,6 +84,7 @@
          	    		  <tr>
          	    		 	<th>Status : </th>
          	    		 	<th>
+                           @if($order->cancel_order == 0)
          	    		 		    @if($order->status == 0)
          	    		 		     <span class="badge badge-warning">Pending</span>
          	    		 		    @elseif($order->status == 1)
@@ -95,6 +96,12 @@
          	    		 		     @else
          	    		 		     <span class="badge badge-danger">Cancel </span>
          	    		 		     @endif
+
+                          @elseif($order->cancel_order == 1)
+                            <span class="badge badge-danger">Cancel Request By User </span>
+                          @else
+                            <span class="badge badge-danger">Cancel Request Accpted </span>
+                          @endif
          	    		 	</th>
          	    		 </tr>
          	    		  
@@ -127,7 +134,7 @@
          	        @foreach($details as $row)
          	        <tr>
          	          <td>{{ $row->product_code }}</td>
-         	          <td>{{ $row->product_name }}</td>
+         	          <td>{{ $row->product_name }} @if($row->buyone_getone == 1)<span style="color:#ff6666"> (Buy One Get One)</span> @endif</td>
          	          <td><img src="{{ URL::to($row->image_one) }}" height="50px;" width="50px;"></td>
          	          <td>{{ $row->color }}</td>
          	          <td>{{ $row->size }}</td>
@@ -149,22 +156,28 @@
          	</div><!-- card -->
          </div>
        	
+      @if($order->cancel_order == 0)
+         
+          	  @if($order->status == 0)
+                 <a href="{{ url('admin/payment/accept/'.$order->id) }}" class="btn btn-info">Payment Accept</a>
+                 <a href="{{ url('admin/payment/cancel/'.$order->id) }}" class="btn btn-danger" id="delete">Cancel Order</a>
+              @elseif($order->status == 1)
+                 <a href="{{ url('admin/delivery/progress/'.$order->id) }}" class="btn btn-info">Delevery Progress</a>
+                 <strong> Payment Already Checked and pass here for delevery request</strong>
+              @elseif($order->status == 2)
+                  <a href="{{ url('admin/delivery/done/'.$order->id) }}" class="btn btn-success">Delevered Done</a>
+                  <strong> Payment Already done your product are handover successfully</strong>
+              @elseif($order->status == 4)
+               <strong class="text-danger">This order are not valid its canceled</strong>
+              @else
+                <strong class="text-success">This product are succesfully delivered</strong>
+              @endif
+       @elseif($order->cancel_order == 1)
+         <strong class="text-danger">Cancel Request Sent By User</strong>
+       @else
+         <strong class="text-danger">Cancel Request Accpted</strong>
+       @endif
 
-       	  @if($order->status == 0)
-              <a href="{{ url('admin/payment/accept/'.$order->id) }}" class="btn btn-info">Payment Accept</a>
-              <a href="{{ url('admin/payment/cancel/'.$order->id) }}" class="btn btn-danger" id="delete">Cancel Order</a>
-          @elseif($order->status == 1)
-              <a href="{{ url('admin/delevery/progress/'.$order->id) }}" class="btn btn-info">Delevery Progress</a>
-              <strong> Payment Already Checked and pass here for delevery request</strong>
-          @elseif($order->status == 2)
-               <a href="{{ url('admin/delevery/done/'.$order->id) }}" class="btn btn-success">Delevered Done</a>
-               <strong> Payment Already done your product are handover successfully</strong>
-          @elseif($order->status == 4)
-            <strong class="text-danger">This order are not valid its canceled</strong>
-            @else
-             <strong class="text-success">This product are succesfully delivered</strong>
-            @endif
-                 
       </div>
     </div>
 

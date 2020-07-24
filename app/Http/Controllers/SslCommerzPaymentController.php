@@ -235,7 +235,8 @@ class SslCommerzPaymentController extends Controller
                   'messege'=>'Successfully Done',
                   'alert-type'=>'success'
         );
-        return Redirect()->to('/')->with($notification);
+        //return Redirect()->to('/')->with($notification);
+        return Redirect()->to('/success_payment/'.$request->tran_i)->with($notification);
 
 
     }

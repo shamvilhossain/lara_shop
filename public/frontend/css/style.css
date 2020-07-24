@@ -1413,6 +1413,7 @@ img {
 }
 #aa-popular-category .aa-popular-category-area #popular,
 #aa-popular-category .aa-popular-category-area #featured,
+#aa-popular-category .aa-popular-category-area #trend,
 #aa-popular-category .aa-popular-category-area #latest {
   text-align: center;
 }
