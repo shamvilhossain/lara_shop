@@ -1192,7 +1192,7 @@
                 "illuminate/support": "^6.0|^7.0",
                 "league/oauth2-server": "^8.0",
                 "php": "^7.2",
-                "phpseclib/phpseclib": "^2.0",
+                "phpseclib/phpseclib": "2.0.47"
                 "symfony/psr-http-message-bridge": "^1.0",
                 "zendframework/zend-diactoros": "^2.0"
             },
